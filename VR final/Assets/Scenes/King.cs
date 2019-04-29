@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class King : ChessPiece
 {
-    
+    public override bool[,] getValidMoves(ChessPiece[,] board, ChessPiece selectedPiece)
+    {
+        return new bool[8, 8];
+    }
+
     /* Start is called before the first frame update
     void Start()
     {

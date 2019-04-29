@@ -11,13 +11,12 @@ GameObject:
   - component: {fileID: 6752808639994742978}
   - component: {fileID: 6759174665073123804}
   - component: {fileID: 6767428106713901024}
-  - component: {fileID: 8023258292792459729}
   - component: {fileID: 7041156729754436937}
   - component: {fileID: 4224454127576211913}
   - component: {fileID: 2878820249360529139}
   m_Layer: 0
   m_Name: PawnLight
-  m_TagString: Untagged
+  m_TagString: chess
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -81,18 +80,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &8023258292792459729
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6754105337146642794}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 663429ea7c18b974ba28e5c148432cfd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7041156729754436937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,6 +92,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be11276e85ee9bf4a8eade1c7305df38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLight: 0
+  currentX: 0
+  currentY: 0
 --- !u!54 &4224454127576211913
 Rigidbody:
   m_ObjectHideFlags: 0

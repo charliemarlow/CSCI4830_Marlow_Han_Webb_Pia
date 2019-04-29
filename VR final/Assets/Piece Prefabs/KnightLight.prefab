@@ -13,11 +13,10 @@ GameObject:
   - component: {fileID: 9204372289046378691}
   - component: {fileID: 9218601534702346385}
   - component: {fileID: 9218601534702346384}
-  - component: {fileID: 9218601534702346391}
   - component: {fileID: 9218601534702346390}
   m_Layer: 0
   m_Name: KnightLight
-  m_TagString: Untagged
+  m_TagString: chess
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,18 +110,6 @@ CapsuleCollider:
   m_Height: 1.25607
   m_Direction: 1
   m_Center: {x: 0, y: 0.628035, z: 0.027925104}
---- !u!114 &9218601534702346391
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9218601534702346389}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 663429ea7c18b974ba28e5c148432cfd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &9218601534702346390
 MonoBehaviour:
   m_ObjectHideFlags: 0

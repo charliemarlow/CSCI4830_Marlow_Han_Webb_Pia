@@ -13,11 +13,10 @@ GameObject:
   - component: {fileID: 1884139432868437598}
   - component: {fileID: 1906096949087717076}
   - component: {fileID: 1906096949087717077}
-  - component: {fileID: 1906096949087717082}
   - component: {fileID: 1906096949087717083}
   m_Layer: 0
   m_Name: BishopDark
-  m_TagString: Untagged
+  m_TagString: chess
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,18 +110,6 @@ CapsuleCollider:
   m_Height: 1.5062299
   m_Direction: 1
   m_Center: {x: 0.0000009536743, y: 0.75311494, z: 0}
---- !u!114 &1906096949087717082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1906096949087717080}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 663429ea7c18b974ba28e5c148432cfd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1906096949087717083
 MonoBehaviour:
   m_ObjectHideFlags: 0

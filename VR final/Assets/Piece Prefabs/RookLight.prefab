@@ -13,11 +13,10 @@ GameObject:
   - component: {fileID: 7986632036622787105}
   - component: {fileID: 7963992633677978499}
   - component: {fileID: 7963992633677978500}
-  - component: {fileID: 7963992633677978501}
   - component: {fileID: 7963992633677978502}
   m_Layer: 0
   m_Name: RookLight
-  m_TagString: Untagged
+  m_TagString: chess
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,18 +110,6 @@ CapsuleCollider:
   m_Height: 1.3155541
   m_Direction: 1
   m_Center: {x: 0.00000029802322, y: 0.6577771, z: 0}
---- !u!114 &7963992633677978501
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7963992633677978503}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 663429ea7c18b974ba28e5c148432cfd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7963992633677978502
 MonoBehaviour:
   m_ObjectHideFlags: 0

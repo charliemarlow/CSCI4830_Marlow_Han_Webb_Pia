@@ -13,11 +13,10 @@ GameObject:
   - component: {fileID: 1853304026622354480}
   - component: {fileID: 1867932341029411510}
   - component: {fileID: 1867932341029411511}
-  - component: {fileID: 1867932341029411508}
   - component: {fileID: 1867932341029411509}
   m_Layer: 0
   m_Name: KingDark
-  m_TagString: Untagged
+  m_TagString: chess
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,18 +110,6 @@ CapsuleCollider:
   m_Height: 1.7193428
   m_Direction: 1
   m_Center: {x: -0.0000019073486, y: 0.8596714, z: 0.00000017881393}
---- !u!114 &1867932341029411508
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1867932341029411514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 663429ea7c18b974ba28e5c148432cfd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1867932341029411509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,3 +122,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d50e50938ce2e542a23b905f997eea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLight: 0
+  currentX: 0
+  currentY: 0

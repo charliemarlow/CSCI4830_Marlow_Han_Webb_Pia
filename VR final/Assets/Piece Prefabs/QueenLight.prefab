@@ -14,10 +14,9 @@ GameObject:
   - component: {fileID: 405384695247828258}
   - component: {fileID: 4795263155577966442}
   - component: {fileID: 914398243968510744}
-  - component: {fileID: 6061641094713342896}
   m_Layer: 0
   m_Name: QueenLight
-  m_TagString: Untagged
+  m_TagString: chess
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,17 +120,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: de54061ea3d401d42bd112773c576016, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6061641094713342896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 19090523952948385}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 663429ea7c18b974ba28e5c148432cfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
