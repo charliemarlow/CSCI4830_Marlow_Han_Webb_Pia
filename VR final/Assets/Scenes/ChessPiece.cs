@@ -43,6 +43,17 @@ public abstract class ChessPiece : MonoBehaviour
         return moves;
     }
 
+    public Vector3 castARay(){
+        Vector3 localPosition = new Vector3(0,0,0);
+        // cast a ray out
+
+        // get the hit
+
+        // return the local position
+
+        return localPosition;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
