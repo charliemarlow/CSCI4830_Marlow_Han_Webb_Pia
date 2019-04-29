@@ -28,6 +28,12 @@ QualitySettings:
     lodBias: .300000012
     maximumLODLevel: 0
     particleRaycastBudget: 4
+<<<<<<< HEAD
+=======
+    asyncUploadTimeSlice: 2
+    asyncUploadBufferSize: 16
+    resolutionScalingFixedDPIFactor: 1
+>>>>>>> master
     excludedTargetPlatforms: []
   - serializedVersion: 2
     name: Fast
@@ -51,6 +57,12 @@ QualitySettings:
     lodBias: .400000006
     maximumLODLevel: 0
     particleRaycastBudget: 16
+<<<<<<< HEAD
+=======
+    asyncUploadTimeSlice: 2
+    asyncUploadBufferSize: 16
+    resolutionScalingFixedDPIFactor: 1
+>>>>>>> master
     excludedTargetPlatforms: []
   - serializedVersion: 2
     name: Simple
@@ -74,6 +86,12 @@ QualitySettings:
     lodBias: .699999988
     maximumLODLevel: 0
     particleRaycastBudget: 64
+<<<<<<< HEAD
+=======
+    asyncUploadTimeSlice: 2
+    asyncUploadBufferSize: 16
+    resolutionScalingFixedDPIFactor: 1
+>>>>>>> master
     excludedTargetPlatforms: []
   - serializedVersion: 2
     name: Good
@@ -97,6 +115,12 @@ QualitySettings:
     lodBias: 1
     maximumLODLevel: 0
     particleRaycastBudget: 256
+<<<<<<< HEAD
+=======
+    asyncUploadTimeSlice: 2
+    asyncUploadBufferSize: 16
+    resolutionScalingFixedDPIFactor: 1
+>>>>>>> master
     excludedTargetPlatforms: []
   - serializedVersion: 2
     name: Beautiful
@@ -120,6 +144,12 @@ QualitySettings:
     lodBias: 1.5
     maximumLODLevel: 0
     particleRaycastBudget: 1024
+<<<<<<< HEAD
+=======
+    asyncUploadTimeSlice: 2
+    asyncUploadBufferSize: 16
+    resolutionScalingFixedDPIFactor: 1
+>>>>>>> master
     excludedTargetPlatforms: []
   - serializedVersion: 2
     name: Fantastic
@@ -143,6 +173,7 @@ QualitySettings:
     lodBias: 2
     maximumLODLevel: 0
     particleRaycastBudget: 4096
+<<<<<<< HEAD
     excludedTargetPlatforms: []
   m_PerPlatformDefaultQuality:
     Android: 0
@@ -153,3 +184,23 @@ QualitySettings:
     WebGL: 0
     Windows Store Apps: 0
     iPhone: 0
+=======
+    asyncUploadTimeSlice: 2
+    asyncUploadBufferSize: 16
+    resolutionScalingFixedDPIFactor: 1
+    excludedTargetPlatforms: []
+  m_PerPlatformDefaultQuality:
+    Android: 2
+    Nintendo 3DS: 5
+    Nintendo Switch: 5
+    PS4: 5
+    PSP2: 2
+    Standalone: 5
+    Tizen: 2
+    WebGL: 3
+    WiiU: 5
+    Windows Store Apps: 5
+    XboxOne: 5
+    iPhone: 2
+    tvOS: 2
+>>>>>>> master

@@ -4,7 +4,11 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 15
+<<<<<<< HEAD
   productGUID: 2e9ebf9051266e74789ffddf92fab7bf
+=======
+  productGUID: 00000000000000000000000000000000
+>>>>>>> master
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -105,7 +109,11 @@ PlayerSettings:
   xboxOneLoggingLevel: 1
   xboxOneDisableEsram: 0
   xboxOnePresentImmediateThreshold: 0
+<<<<<<< HEAD
   switchQueueCommandMemory: 1048576
+=======
+  switchQueueCommandMemory: 0
+>>>>>>> master
   switchQueueControlMemory: 16384
   switchQueueComputeMemory: 262144
   switchNVNShaderPoolsGranularity: 33554432
@@ -242,9 +250,15 @@ PlayerSettings:
   iOSRequireARKit: 0
   iOSAutomaticallyDetectAndAddCapabilities: 1
   appleEnableProMotion: 0
+<<<<<<< HEAD
   clonedFromGUID: 3355557de5a687e44a6eface0a816616
   templatePackageId: 
   templateDefaultScene: 
+=======
+  clonedFromGUID: 371f3981bd1f5a34793bb979ce7e7005
+  templatePackageId: 
+  templateDefaultScene: Assets/Scenes/SampleScene.unity
+>>>>>>> master
   AndroidTargetArchitectures: 5
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
@@ -469,7 +483,11 @@ PlayerSettings:
   switchDataLossConfirmation: 0
   switchUserAccountLockEnabled: 0
   switchSystemResourceMemory: 16777216
+<<<<<<< HEAD
   switchSupportedNpadStyles: 6
+=======
+  switchSupportedNpadStyles: 3
+>>>>>>> master
   switchNativeFsCacheSize: 32
   switchIsHoldTypeHorizontal: 0
   switchSupportedNpadCount: 8
