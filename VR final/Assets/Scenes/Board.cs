@@ -16,6 +16,7 @@ public class Board : MonoBehaviour
     private GameObject highlight = null;
     private bool isHighlighted = false;
     private bool pieceIsInHand = false;
+    public Camera gameCam;
 
     public GameObject pawnDarkPrefab;
     public GameObject pawnLightPrefab;
@@ -283,7 +284,7 @@ public class Board : MonoBehaviour
     bool onMouseClick(){
         bool validPiece = false;
          RaycastHit hit;
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 10))
+        if (Physics.Raycast(gameCam.ScreenPointToRay(Input.mousePosition), out hit, 10))
         {
             if (hit.transform.gameObject.GetComponent<ChessPiece>() != null ||
                 hit.transform.gameObject.CompareTag("highlight"))
