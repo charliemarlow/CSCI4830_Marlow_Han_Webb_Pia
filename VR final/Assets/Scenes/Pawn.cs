@@ -21,7 +21,8 @@ public class Pawn : ChessPiece
         // 2 attacks
         if (isValidSpot(forward) && isValidSpot(right))
         {
-            if (board[right, forward] != null)
+            if (board[right, forward] != null &&
+                board[right, forward].isLight != selectedPiece.isLight)
             {
                 validMoves[right, forward] = true;
             }
@@ -29,7 +30,8 @@ public class Pawn : ChessPiece
 
         if (isValidSpot(forward) && isValidSpot(left))
         {
-            if (board[left, forward] != null)
+            if (board[left, forward] != null && 
+                board[left, forward].isLight != selectedPiece.isLight)
             {
                 validMoves[left, forward] = true;
             }
@@ -38,7 +40,8 @@ public class Pawn : ChessPiece
 
         // 2 possible forward moves
         if (isFirstMove && isValidSpot(forwardTwice)
-            && board[selectedPiece.currentX, forwardTwice] == null)
+            && board[selectedPiece.currentX, forwardTwice] == null &&
+            board[selectedPiece.currentX, forward] == null)
         {
             validMoves[selectedPiece.currentX, forwardTwice] = true;
         }
@@ -48,7 +51,11 @@ public class Pawn : ChessPiece
         {
             validMoves[selectedPiece.currentX, forward] = true;
         }
-        isFirstMove = false;
+
+        if (isFirstMove && hasValidMoves(validMoves))
+        {
+            isFirstMove = false;
+        }
 
 
         return validMoves;
@@ -118,6 +125,21 @@ public class Pawn : ChessPiece
         return right;
     }
     
+    bool hasValidMoves(bool[,] validMoves)
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            for(int j = 0; j < 8; j++)
+            {
+                if (validMoves[i, j])
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     // Start is called before the first frame update
     void Start()
     {

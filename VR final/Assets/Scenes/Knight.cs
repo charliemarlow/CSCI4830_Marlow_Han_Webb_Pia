@@ -37,10 +37,15 @@ public class Knight : ChessPiece
 
         foreach((int, int) opt in options)
         {
-            if (isValidSpot(opt.Item1) && isValidSpot(opt.Item2))
+            if (isValidSpot(opt.Item1) && isValidSpot(opt.Item2) )
             {
+                // valid if empty or if it has an enemy in it
                 Debug.Log("Valid move at (x,y) = " + opt.Item1 + " " + opt.Item2);
-                validMoves[opt.Item1, opt.Item2] = true;
+                if (board[opt.Item1, opt.Item2] == null ||
+                    board[opt.Item1, opt.Item2].isLight != selectedPiece.isLight)
+                {
+                    validMoves[opt.Item1, opt.Item2] = true;
+                }
             }
         }
         return validMoves;

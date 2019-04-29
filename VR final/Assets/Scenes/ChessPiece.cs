@@ -28,6 +28,21 @@ public abstract class ChessPiece : MonoBehaviour
         }
         return false;
     }
+
+    public bool[,] mergeLists(bool[,] moves1, bool[,] moves2)
+    {
+        bool[,] moves = new bool[8, 8];
+        for (int i = 0; i < 8; i++)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+                moves[i, j] = moves1[i, j] || moves2[i, j];
+            }
+        }
+
+        return moves;
+    }
+
     // Start is called before the first frame update
     void Start()
     {

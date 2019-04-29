@@ -6,6 +6,7 @@ TagManager:
   tags:
   - chess
   - highlight
+  - king
   layers:
   - Default
   - TransparentFX
