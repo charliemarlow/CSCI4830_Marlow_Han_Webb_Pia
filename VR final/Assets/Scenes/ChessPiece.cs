@@ -46,7 +46,16 @@ public abstract class ChessPiece : MonoBehaviour
     public Vector3 castARay(){
         Vector3 localPosition = new Vector3(0,0,0);
         // cast a ray out
+        BoxCollider collider = this.GetComponentInChildren<BoxCollider>();
+        Vector3 boxPos = collider.transform.position;
+        Vector3 direction = collider.transform.TransformDirection(Vector3.forward);
+        RaycastHit hit;
+        float maxDistance = 100f;
 
+        if(Physics.Raycast(boxPos, direction, out hit, maxDistance)){
+            Debug.Log("hit = " + hit.transform.name);
+        }
+        
         // get the hit
 
         // return the local position
