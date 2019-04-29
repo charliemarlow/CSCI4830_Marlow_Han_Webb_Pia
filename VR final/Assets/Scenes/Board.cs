@@ -115,6 +115,11 @@ public class Board : MonoBehaviour
         
         // select new piece
         selectedPiece = logicalBoard[x,y];
+        if(selectedPiece.isLight != isLightTurn)
+        {
+            selectedPiece = null;
+            return;
+        }
         Debug.Log("Selected " + selectedPiece.gameObject.name);
         Debug.Log("Selected x " + selectedPiece.currentX + " Selected y = " + selectedPiece.currentY);
         
@@ -140,6 +145,12 @@ public class Board : MonoBehaviour
         // trick: destroy the gameobject, not the chess piece
         if(logicalBoard[x,y] != null)
         {
+            if (logicalBoard[x, y].CompareTag("king"))
+            {
+                Debug.Log("Game Over");
+                gameOver();
+                return;
+            }
             Destroy(logicalBoard[x, y].gameObject);
         }
 
@@ -151,8 +162,27 @@ public class Board : MonoBehaviour
         // clear highlights
         clearHighlights();
         isHighlighted = false;
+        isLightTurn = !isLightTurn;
     }
 
+    private void gameOver()
+    {
+        for(int i =0; i < boardDimension; i++)
+        {
+            for(int j =0; j< boardDimension; j++)
+            {
+                if(logicalBoard[i,j] != null)
+                {
+                    Destroy(logicalBoard[i, j].gameObject);
+                    logicalBoard[i, j] = null;
+                    
+                }
+            }
+        }
+        Destroy(selectedPiece.gameObject);
+        clearHighlights();
+        instantiatePieces();
+    }
     private void paintHighlights(bool[,] possible)
     {
         for (int i = 0; i < 8; i++)
