@@ -15,6 +15,7 @@ public class Board : MonoBehaviour
     private ChessPiece selectedPiece = null;
     private GameObject highlight = null;
     private bool isHighlighted = false;
+    private bool pieceIsInHand = false;
 
     public GameObject pawnDarkPrefab;
     public GameObject pawnLightPrefab;
@@ -130,6 +131,33 @@ public class Board : MonoBehaviour
         paintHighlights(possible);
     }
 
+
+    // Flow:
+    // pick it up with the hand, hand calls to boardmanager to alert it 
+    // board manager makes necessary changes and shows the options
+    // then the raycast from the bottom of the piece is activate on drop
+    public void vrSelect(ChessPiece piece){
+        int currX = piece.currentX;
+        int currY = piece.currentY;
+
+        selectedPiece = logicalBoard[currX, currY];
+        if(selectedPiece.isLight != isLightTurn){
+            selectedPiece = null;
+            // drop it from the hand, move it back
+            piece.movePiece(currX, currY);
+
+            return;
+        }
+
+        // now we want to get all possible moves
+        bool[,] possible = selectedPiece.getValidMoves(logicalBoard, selectedPiece);
+
+        // then we want to paint those moves on the board with the highlight prefab
+        paintHighlights(possible);
+        pieceIsInHand = true;
+
+    }
+
     private void selectHighlight(int x, int y)
     {
         // don't move to null loc
@@ -235,12 +263,26 @@ public class Board : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        bool validPiece = false;
+    float getSelectedTileNumber(float tileNum){
+        float selectedTile;
+         if(tileNum > .5)
+        {
+            selectedTile = Mathf.Ceil(tileNum);
+        }
+        else
+        {
+            selectedTile = 0;
+        }
 
-        RaycastHit hit;
+         if(selectedTile >= 8)
+        {
+            selectedTile = 7;
+        }
+        return selectedTile;
+    }
+    bool onMouseClick(){
+        bool validPiece = false;
+         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 10))
         {
             if (hit.transform.gameObject.GetComponent<ChessPiece>() != null ||
@@ -250,33 +292,9 @@ public class Board : MonoBehaviour
                 float tempX = hit.transform.localPosition.x;
                 float tempY = hit.transform.localPosition.z;
 
-                if(tempX > .5)
-                {
-                    selectedTileX = Mathf.Ceil(hit.transform.localPosition.x);
-                }
-                else
-                {
-                    selectedTileX = 0;
-                }
+                selectedTileX = getSelectedTileNumber(tempX);
+                selectedTileY = getSelectedTileNumber(tempY);
 
-                if(tempY > .5)
-                {
-                    selectedTileY = Mathf.Ceil(hit.transform.localPosition.z);
-                }
-                else
-                {
-                    selectedTileY = 0;
-                }
-
-                if(selectedTileY >= 8)
-                {
-                    selectedTileY = 7;
-                }
-                if(selectedTileX >= 8)
-                {
-                    selectedTileX = 7;
-                }
-                //Debug.Log("X = " + selectedTileX + "y = " + selectedTileY);
                 validPiece = true;
             }
             else
@@ -284,6 +302,46 @@ public class Board : MonoBehaviour
                 validPiece = false;
             }
         }
+        return validPiece;
+    }
+
+// valid piece is set to true 
+// if it's valid, should move it there
+    public bool onDrop(){
+        bool validPiece = false;
+
+        // get a raycast from bottom of chess piece
+        Vector3 localPos = selectedPiece.castARay();
+        if(localPos == null){
+            // set the piece back to its position
+            selectedPiece.movePiece(selectedPiece.currentX, selectedPiece.currentY);
+            // more to force a drop
+            selectedPiece = null;
+        }
+
+        // check that it is equal to a chess piece OR a highlight
+
+        // get local pos, get selected tile x and selected tile y
+        float tempX = localPos.x;
+        float tempY = localPos.z;
+
+        selectedTileX = getSelectedTileNumber(tempX);
+        selectedTileY = getSelectedTileNumber(tempY);
+
+        validPiece = true;
+
+        // set valid piece to true, or set it to false
+        selectHighlight((int)selectedTileX, (int)selectedTileY);
+
+        return validPiece;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        bool validPiece = onMouseClick();
+
+       
 
         if (Input.GetMouseButtonDown(0))
         {
