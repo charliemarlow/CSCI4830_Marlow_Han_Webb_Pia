@@ -308,11 +308,11 @@ public class Board : MonoBehaviour
 
 // valid piece is set to true 
 // if it's valid, should move it there
-    public bool onDrop(){
+    public bool onDrop(Transform highlight){
         bool validPiece = false;
 
         // get a raycast from bottom of chess piece
-        Vector3 localPos = selectedPiece.castARay();
+        Vector3 localPos = highlight.localPosition;
         if(localPos == null){
             // set the piece back to its position
             selectedPiece.movePiece(selectedPiece.currentX, selectedPiece.currentY);
@@ -340,10 +340,10 @@ public class Board : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bool validPiece = onMouseClick();
+        //bool validPiece = onMouseClick();
 
        
-
+        /*
         if (Input.GetMouseButtonDown(0))
         {
             if (selectedPiece == null && !isHighlighted && validPiece)
@@ -362,6 +362,7 @@ public class Board : MonoBehaviour
                 selectedPiece = null;
             }
         }
+        */
             
         }
 }

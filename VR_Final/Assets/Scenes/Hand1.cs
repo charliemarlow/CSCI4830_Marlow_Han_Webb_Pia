@@ -8,7 +8,9 @@ public class Hand1 : MonoBehaviour
     public Board boardManager;
 
     ChessPiece currentPiece = null;
-
+    public OVRInput.Controller mycontoller;
+    public float pickupThreshold;
+    public float releaseThreshold;
 
     // responsible for calling board funcs 
     // VR pickup
@@ -26,25 +28,42 @@ public class Hand1 : MonoBehaviour
         
     }
 
-/* 
+
     private void onTriggerStay(Collider c){
-        //Rigidbody rb = c.attachedRigidbody;
+        Rigidbody rb = c.attachedRigidbody;
         if(rb == null) return;
 
         ChessPiece p = rb.GetComponent<ChessPiece>();
         if(p == null) return;
 
         // get steam vr input
+        float triggerValue;
 
-        if(currentPiece == null){
+        if (mycontoller == OVRInput.Controller.LTouch)
+        {
+            triggerValue = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger);
+        }
+        else
+        {
+            triggerValue = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger);
+        }
+
+        if (currentPiece == null && triggerValue > pickupThreshold)
+        {
+            Debug.Log("Picking up");
+            pickup(p);
+
             // pick up the object
         }
 
-        if(currentPiece != null){
+        if(currentPiece != null && triggerValue < releaseThreshold)
+        {
             // drop the object
+            Debug.Log("Dropping");
+            drop(p);
         }
     }
-*/
+
     private void pickup(ChessPiece piece){
         currentPiece = piece;
         currentPiece.pickedUp(this.transform);

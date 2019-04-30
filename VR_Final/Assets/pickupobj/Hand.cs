@@ -33,6 +33,7 @@ public class Hand : MonoBehaviour
 
         if(p != null)
         {
+            Debug.Log("hitting chess piece");
             return;
         }
 
@@ -40,20 +41,24 @@ public class Hand : MonoBehaviour
         
         if(mycontoller == OVRInput.Controller.LTouch)
         {
+            
             triggerValue = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger);
         }
         else
         {
             triggerValue = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger);
         }
+
         if (currentObject == null && triggerValue > pickupThreshold)
         {
+            Debug.Log("my trigger val: " + triggerValue);
             currentObject = p;
             rb.isKinematic = true;
             currentObject.transform.parent = this.transform;
         }
         if(currentObject!= null && triggerValue < releaseThreshold)
         {
+            Debug.Log("my trigger val: " + triggerValue);
             currentObject.transform.parent = null;
             rb.isKinematic = false;
             currentObject = null;
