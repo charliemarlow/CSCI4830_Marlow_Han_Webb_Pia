@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Hand : MonoBehaviour
 {
-    //public OVRInput.Controller mycontoller;
-    PickupObj currentObject = null;
+    public OVRInput.Controller mycontoller;
+    ChessPiece currentObject = null;
     public float pickupThreshold;
     public float releaseThreshold;
     // Start is called before the first frame update
@@ -19,17 +19,17 @@ public class Hand : MonoBehaviour
     {
         
     }
-/* 
+
     private void OnTriggerStay(Collider other)
     {
-        //Rigidbody rb = other.attachedRigidbody;
+        Rigidbody rb = other.attachedRigidbody;
 
         if(rb == null)
         {
             return;
         }
 
-        PickupObj p = rb.GetComponent<PickupObj>();
+        ChessPiece p = rb.GetComponent<ChessPiece>();
 
         if(p != null)
         {
@@ -60,6 +60,6 @@ public class Hand : MonoBehaviour
         }
 
         }
-        */
+        
     
 }
