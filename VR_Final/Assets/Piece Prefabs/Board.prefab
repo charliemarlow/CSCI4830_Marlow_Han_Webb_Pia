@@ -1,0 +1,121 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4079537145388782436
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4077011275238827598}
+  - component: {fileID: 4099241142817444392}
+  - component: {fileID: 4093667778450447546}
+  - component: {fileID: 4837544343787991980}
+  m_Layer: 0
+  m_Name: Board
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &4077011275238827598
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4079537145388782436}
+  m_LocalRotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.56, y: 1.6983254, z: -0.48}
+  m_LocalScale: {x: 0.11, y: 0.1, z: 0.1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &4099241142817444392
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4079537145388782436}
+  m_Mesh: {fileID: 4300000, guid: ba44901e27656394a83c87ba14ddbdd9, type: 3}
+--- !u!23 &4093667778450447546
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4079537145388782436}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 9728b39f56ce29244a90a8c691493fef, type: 2}
+  - {fileID: 2100000, guid: e3dbe1d6695680f4bb62ee7b5fd3a90f, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &4837544343787991980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4079537145388782436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea25de8069af0f04ea661e848d563257, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  graphicChessBoard: {fileID: 4079537145388782436}
+  highlightPrefab: {fileID: 8339448536720458273, guid: b8f8f867405b64446ad66556d4279448,
+    type: 3}
+  isLightTurn: 0
+  pawnDarkPrefab: {fileID: 1094308736908764041, guid: 97c0818710bb32444911390c560c3b41,
+    type: 3}
+  pawnLightPrefab: {fileID: 6754105337146642794, guid: 249a53d19f4f497458b7b026afdbabbd,
+    type: 3}
+  rookDarkPrefab: {fileID: 7777967959388099070, guid: 627dc8b48eff76e44828f2c70e79accb,
+    type: 3}
+  rookLightPrefab: {fileID: 7963992633677978503, guid: f5d4b9fb4b7b119449292e1610ff60d1,
+    type: 3}
+  knightDarkPrefab: {fileID: 1097129376661015831, guid: 18ed4af614c54b44999b591a96ad4b13,
+    type: 3}
+  knightLightPrefab: {fileID: 9218601534702346389, guid: 7cbca0b5ee0fcf04db9d62845a98777d,
+    type: 3}
+  bishopDarkPrefab: {fileID: 1906096949087717080, guid: 7744ceef3c8732146b13fac47db8df35,
+    type: 3}
+  bishopLightPrefab: {fileID: 4376083925141472672, guid: c47a11b9824a1e74da216543a363cbbb,
+    type: 3}
+  kingDarkPrefab: {fileID: 1867932341029411514, guid: d4ea81815017f62419421456877e8f1f,
+    type: 3}
+  kingLightPrefab: {fileID: 3698009409842159189, guid: 0b9e7eea2086fbf4d82e4bbb9a8735f7,
+    type: 3}
+  queenDarkPrefab: {fileID: 8998894081441189679, guid: 88e78170306eb044485cdcd7a05241f3,
+    type: 3}
+  queenLightPrefab: {fileID: 19090523952948385, guid: c056b1627c1c27c4c80452f88c050ad7,
+    type: 3}
