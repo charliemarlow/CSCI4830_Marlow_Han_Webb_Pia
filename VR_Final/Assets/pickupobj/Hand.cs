@@ -31,13 +31,12 @@ public class Hand : MonoBehaviour
 
         ChessPiece p = rb.GetComponent<ChessPiece>();
 
-        if(p != null)
+        if(p == null)
         {
             return;
         }
 
         float triggerValue;
-        
         if(mycontoller == OVRInput.Controller.LTouch)
         {
             triggerValue = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger);
@@ -51,15 +50,13 @@ public class Hand : MonoBehaviour
             currentObject = p;
             rb.isKinematic = true;
             currentObject.transform.parent = this.transform;
+            print("intersecting pick up object " +p.name + " at " + Time.time);
         }
         if(currentObject!= null && triggerValue < releaseThreshold)
         {
             currentObject.transform.parent = null;
-            rb.isKinematic = false;
             currentObject = null;
         }
-
-        }
+    }
         
-    
 }
