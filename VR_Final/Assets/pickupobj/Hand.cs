@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Hand : MonoBehaviour
 {
-    //public OVRInput.Controller mycontoller;
+    public OVRInput.Controller mycontoller;
     PickupObj currentObject = null;
     public float pickupThreshold;
     public float releaseThreshold;
@@ -19,10 +19,10 @@ public class Hand : MonoBehaviour
     {
         
     }
-/* 
+
     private void OnTriggerStay(Collider other)
     {
-        //Rigidbody rb = other.attachedRigidbody;
+        Rigidbody rb = other.attachedRigidbody;
 
         if(rb == null)
         {
@@ -31,13 +31,12 @@ public class Hand : MonoBehaviour
 
         PickupObj p = rb.GetComponent<PickupObj>();
 
-        if(p != null)
+        if(p == null)
         {
             return;
         }
 
         float triggerValue;
-        
         if(mycontoller == OVRInput.Controller.LTouch)
         {
             triggerValue = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger);
@@ -51,15 +50,12 @@ public class Hand : MonoBehaviour
             currentObject = p;
             rb.isKinematic = true;
             currentObject.transform.parent = this.transform;
+            print("intersecting pick up object " +p.name + " at " + Time.time);
         }
         if(currentObject!= null && triggerValue < releaseThreshold)
         {
             currentObject.transform.parent = null;
-            rb.isKinematic = false;
             currentObject = null;
         }
-
-        }
-        */
-    
+    }
 }
