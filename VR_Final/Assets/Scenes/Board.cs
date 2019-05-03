@@ -209,10 +209,12 @@ public class Board : MonoBehaviour
             if (logicalBoard[x, y].isLight)
             {
                 manager.makeHappy();
+                //haptics here
             }
             else
             {
                 manager.makeSad();
+                // haptics here
             }
             Destroy(logicalBoard[x, y].gameObject);
         }
@@ -220,6 +222,7 @@ public class Board : MonoBehaviour
         // set the piece in new loc
         logicalBoard[x, y] = selectedPiece;
         selectedPiece.movePiece(x, y);
+        //haptics here
 
         // set pawn's first move to false
         Pawn checkForFirst = selectedPiece.GetComponent<Pawn>();
@@ -513,6 +516,7 @@ public class Board : MonoBehaviour
                 if (logicalBoard[x, y].isLight)
                 {
                     manager.makeHappy();
+                    //haptics here
                 }
                 else
                 {
