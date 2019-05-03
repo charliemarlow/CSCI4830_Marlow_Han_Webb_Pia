@@ -36,6 +36,7 @@ public class Board : MonoBehaviour
 
     private ChessPiece[,] logicalBoard = new ChessPiece[boardDimension, boardDimension];
     private GameObject[,] highlights = new GameObject[boardDimension, boardDimension];
+    private bool isTutorial = false;
 
     public ControllerInput left;
     public ControllerInput right;
@@ -46,6 +47,16 @@ public class Board : MonoBehaviour
     // set levels 0 to N
     public enum difficulty { EASY, CHALLENGE };
     public int currentDifficulty = 1;
+
+    public bool getIsTutorial()
+    {
+        return isTutorial;
+    }
+
+    public void setIsTutorial(bool tut)
+    {
+        isTutorial = tut;
+    }
 
     private void instantiatePiece(GameObject prefab, int newX, int newZ)
     {
@@ -132,6 +143,7 @@ public class Board : MonoBehaviour
         instantiatePieces();
         isLightTurn = true;
         gameCam = GameObject.FindObjectOfType<Camera>();
+
     }
 
     public void selectPiece(int x, int y)
@@ -542,7 +554,7 @@ public class Board : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isLightTurn && !inUse)
+        if (!isTutorial && !isLightTurn && !inUse)
         {
             inUse = true;
             manager.makeThink();

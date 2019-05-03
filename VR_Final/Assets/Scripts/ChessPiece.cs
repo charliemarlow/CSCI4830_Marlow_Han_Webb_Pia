@@ -176,7 +176,7 @@ public abstract class ChessPiece : MonoBehaviour
             isPickedUp = true;
             return;
         }
-        if (board.isLightTurn)
+        if (board.isLightTurn || board.getIsTutorial())
         {
             board.selectPiece(currentX, currentY);
         }
@@ -223,7 +223,7 @@ public abstract class ChessPiece : MonoBehaviour
         {
             return;
         }
-        if (board.isLightTurn)
+        if (board.isLightTurn || board.getIsTutorial())
         {
             //Debug.Log("board " + board.name);
             if(board == null)

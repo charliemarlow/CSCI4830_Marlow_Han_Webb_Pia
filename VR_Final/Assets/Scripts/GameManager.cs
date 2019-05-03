@@ -7,6 +7,17 @@ public class GameManager : MonoBehaviour
 
     public bool raycastMode;
     public Leaderboard leader;
+    public Board board;
+
+    public void setTutorial(bool tut)
+    {
+        board.setIsTutorial(tut);
+    }
+
+    public bool getTutorial()
+    {
+        return board.getIsTutorial();
+    }
 
     public void raycastSelect()
     {
@@ -17,6 +28,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         leader = GetComponent<Leaderboard>();
+        GameObject boardGo = GameObject.FindWithTag("board");
+        board = boardGo.GetComponent<Board>();
     }
 
     public void clackNoise()
