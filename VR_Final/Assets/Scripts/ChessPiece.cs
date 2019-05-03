@@ -16,6 +16,7 @@ public abstract class ChessPiece : MonoBehaviour
     public Board board;
     public Transform originalParent;
     public Highlight currentHighlight = null;
+    public Quaternion originalRot;
 
     public void movePiece(int x, int y)
     {
@@ -193,14 +194,7 @@ public abstract class ChessPiece : MonoBehaviour
             {
                 transform.SetParent(board.transform);
             }
-            if (isLight)
-            {
-                transform.rotation = Quaternion.Euler(0, 0, 0);
-            }
-            else
-            {
-                this.transform.localRotation = Quaternion.Euler(0, -180, 0);
-            }
+            this.transform.rotation = originalRot;
             OnMouseUp();
             currentHighlight = null;
         }
@@ -236,6 +230,7 @@ public abstract class ChessPiece : MonoBehaviour
                 Debug.Log("NULL this");
             }
 
+            
             if(currentHighlight != null)
             {
                 Debug.Log("current highlight =" + currentHighlight.name);
@@ -254,6 +249,7 @@ public abstract class ChessPiece : MonoBehaviour
         }
         else
         {
+            // bad haptic
             this.movePiece(currentX, currentY);
             board.clearHighlights();
             currentHighlight = null;

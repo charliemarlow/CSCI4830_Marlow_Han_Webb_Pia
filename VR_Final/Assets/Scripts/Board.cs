@@ -10,6 +10,7 @@ public class Board : MonoBehaviour
     public GameManager manager;
     public ChessOpponent opponent;
     public bool isLightTurn;
+    public ControllerInput input;
     private float selectedTileX = -1;
     private float selectedTileY = -1;
 
@@ -64,6 +65,7 @@ public class Board : MonoBehaviour
             p.transform.rotation = Quaternion.Euler(rotation);
             //p.transform.localRotation = new Vector3(90, 0, 0);
         }
+        p.originalRot = p.transform.rotation;
         logicalBoard[newX, newZ] = p;
 
     }
@@ -220,11 +222,13 @@ public class Board : MonoBehaviour
             {
                 manager.makeHappy();
                 //haptics here
+                input.badHaptic();
             }
             else
             {
                 manager.makeSad();
                 // haptics here
+                input.goodHaptic();
             }
             Destroy(logicalBoard[x, y].gameObject);
         }
@@ -232,7 +236,10 @@ public class Board : MonoBehaviour
         // set the piece in new loc
         logicalBoard[x, y] = selectedPiece;
         selectedPiece.movePiece(x, y);
+        // clack noise]
+        manager.clackNoise();
         //haptics here
+        input.putDownHaptic();
 
         // set pawn's first move to false
         Pawn checkForFirst = selectedPiece.GetComponent<Pawn>();
@@ -554,10 +561,12 @@ public class Board : MonoBehaviour
                 {
                     manager.makeHappy();
                     //haptics here
+                    input.badHaptic();
                 }
                 else
                 {
                     manager.makeSad();
+                    input.goodHaptic();
                 }
                 Destroy(logicalBoard[x, y].gameObject);
             }

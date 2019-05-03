@@ -5,12 +5,15 @@ using Valve.VR;
 
 public class ControllerInput : MonoBehaviour
 {
-
+    //public SteamVR_Action_Vibration hapticSignal;
     public GameManager gm;
+    public SteamVR_Behaviour_Pose controller;
     // Start is called before the first frame update
     void Start()
     {
-        
+        controller = GetComponent<SteamVR_Behaviour_Pose>();
+        Debug.Log(controller.name);
+
     }
 
     public SteamVR_Action_Boolean grabPinch; //Grab Pinch is the trigger, select from inspecter
@@ -20,12 +23,33 @@ public class ControllerInput : MonoBehaviour
     public ChessPiece currentPiece;
     private Collider recentCollision = null;
   
+
+    public void pickupHaptic()
+    {
+        //SteamVR_Action_Vibration.Execute(float secondsFromNow, float durationSeconds, float frequency, float amplitude, SteamVR_Input_Sources inputSource)
+        controller.hapticSignal.Execute(0f, .05f, 100, 0.5f, controller.inputSource);
+    }
+
+    public void putDownHaptic()
+    {
+        controller.hapticSignal.Execute(0f, .08f, 100, 0.5f, controller.inputSource);
+    }
+
+    public void goodHaptic()
+    {
+        pickupHaptic();
+    }
+
+    public void badHaptic()
+    {
+        //SteamVR_Action_Vibration.Execute(float secondsFromNow, float durationSeconds, float frequency, float amplitude, SteamVR_Input_Sources inputSource)
+        controller.hapticSignal.Execute(0f, .5f, 200, 1f, controller.inputSource);
+    }
 // Update is called once per frame
 void Update()
     {
         bool wasTrue = isGrabbed;
         //Debug.Log(SteamVR_Actions._default.GrabPinch.G);
-
         if (gm.raycastMode)
         {
             if (SteamVR_Actions._default.GrabPinch.GetStateDown(SteamVR_Input_Sources.Any))
@@ -39,6 +63,7 @@ void Update()
         {
             Debug.Log("Down");
             isGrabbed = true;
+            //putDownHaptic();
             if(recentCollision != null)
             {
                 OnStay(recentCollision);
