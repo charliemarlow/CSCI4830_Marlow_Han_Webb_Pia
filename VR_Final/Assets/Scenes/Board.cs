@@ -37,9 +37,12 @@ public class Board : MonoBehaviour
     private ChessPiece[,] logicalBoard = new ChessPiece[boardDimension, boardDimension];
     private GameObject[,] highlights = new GameObject[boardDimension, boardDimension];
 
+    private float startTime;
+    private float endTime;
+    bool firstMove = true;
     // set levels 0 to N
     public enum difficulty { EASY, CHALLENGE };
-    public int currentDifficulty = 0;
+    public int currentDifficulty = 1;
 
     private void instantiatePiece(GameObject prefab, int newX, int newZ)
     {
@@ -129,12 +132,19 @@ public class Board : MonoBehaviour
 
     public void selectPiece(int x, int y)
     {
+        if (firstMove)
+        {
+            startTime = Time.time;
+            firstMove = false;
+        }
         if (logicalBoard[x,y] == null) return;
         
         // select new piece
         selectedPiece = logicalBoard[x,y];
+        Debug.Log("Just selected " + selectedPiece.name);
         if(selectedPiece.isLight != isLightTurn)
         {
+            selectedPiece.movePiece(selectedPiece.currentX, selectedPiece.currentY);
             selectedPiece = null;
             return;
         }
@@ -179,7 +189,7 @@ public class Board : MonoBehaviour
     private void selectHighlight(int x, int y)
     {
         // don't move to null loc
-        
+        Debug.Log("selected piece = " + selectedPiece.name);
         if (highlights[x,y] == null)
         {
             Debug.Log("null return");
@@ -203,7 +213,7 @@ public class Board : MonoBehaviour
             if (logicalBoard[x, y].CompareTag("king"))
             {
                 Debug.Log("Game Over");
-                gameOver();
+                gameOver(0);
                 return;
             }
             if (logicalBoard[x, y].isLight)
@@ -238,8 +248,17 @@ public class Board : MonoBehaviour
                 if(selectedPiece.currentY == 7)
                 {
                     Debug.Log("it is 7");
+                    int currentX = selectedPiece.currentX;
+                    int currentY = selectedPiece.currentY;
                     string type = manager.pawnPromote();
                     promotePawn(type, true);
+
+
+                    Destroy(selectedPiece.gameObject);
+                    selectedPiece = logicalBoard[x, y];
+                    selectedPiece.isLight = true;
+                    logicalBoard[currentX, currentY] = selectedPiece;
+                    Debug.Log("promoted " + logicalBoard[x, y]);
                 }
             }
             else
@@ -330,8 +349,10 @@ public class Board : MonoBehaviour
         }
     }
 
-    private void gameOver()
+    private void gameOver(int win)
     {
+        // win: 0 is user, 1 is AI, 3 is stalemate
+        endTime = Time.time;
         for(int i =0; i < boardDimension; i++)
         {
             for(int j =0; j< boardDimension; j++)
@@ -346,7 +367,17 @@ public class Board : MonoBehaviour
         }
         Destroy(selectedPiece.gameObject);
         clearHighlights();
+
+        if (win == 0)
+            manager.finishedGame(1, endTime - startTime);
+        else if (win == 1)
+            manager.finishedGame(0, endTime - startTime);
+        else if (win == 3)
+            manager.finishedGame(.5f, endTime - startTime);
+
+
         instantiatePieces();
+        firstMove = true;
     }
     private void paintHighlights(bool[,] possible)
     {
@@ -484,24 +515,27 @@ public class Board : MonoBehaviour
             if(piece.checkMate(logicalBoard, piece))
             {
                 Debug.Log("Game over");
-                gameOver();
+                gameOver(3);
             }
         }
 
     }
 
     private int count = 0;
-    bool inUse = false;
+    bool inUse = false; // non atomic mutex lock
+
     // Update is called once per frame
     void Update()
     {
         if (!isLightTurn && !inUse)
         {
             inUse = true;
+            manager.makeThink();
             (ChessPiece, int, int) myTuple = opponent.makeMove(logicalBoard);
             ChessPiece movePiece = myTuple.Item1;
             int x = myTuple.Item2;
             int y = myTuple.Item3;
+            manager.moveAvatarHand(movePiece, x, y);
 
             logicalBoard[movePiece.currentX, movePiece.currentY] = null;
             if (logicalBoard[x, y] != null)
@@ -510,7 +544,7 @@ public class Board : MonoBehaviour
                 {
                     Debug.Log("Game Over");
                     selectedPiece = movePiece;
-                    gameOver();
+                    gameOver(2);
                     return;
                 }
                 if (logicalBoard[x, y].isLight)

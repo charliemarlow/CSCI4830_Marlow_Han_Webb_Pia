@@ -27,6 +27,7 @@ public class ChessOpponent : MonoBehaviour
         }
         else if (chessBoard.currentDifficulty == 1)
         {
+            Debug.Log("medium");
             return medium(board, validMoves);
         }
         return validMoves[0];
@@ -68,7 +69,31 @@ public class ChessOpponent : MonoBehaviour
         return selection;
     }
 
+    public (ChessPiece, int, int) hard(ChessPiece[,] board, List<(ChessPiece, int x, int y)> validMoves)
+    {
 
+
+        return validMoves[0];
+    }
+    private int minimax(int depth, bool isMax, ChessPiece[,] board)
+    {
+        // if depth is 0, get the max move
+
+        // get all possible moves
+
+        // if is max
+            // set best move to 0
+            // for each possible move
+            // recurse w/ depth -1, !ismax
+            // take the maximum move of best and recursion
+        // else
+            // set best to 9999
+            //  for each move
+            // choose best between
+
+
+        return 0;
+    }
 
     public List<(ChessPiece, int x, int y)> getMoves()
     {
