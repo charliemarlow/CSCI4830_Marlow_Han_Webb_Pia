@@ -72,7 +72,6 @@ public class ChessOpponent : MonoBehaviour
     public (ChessPiece, int, int) hard(ChessPiece[,] board, List<(ChessPiece, int x, int y)> validMoves)
     {
 
-
         return validMoves[0];
     }
     private int minimax(int depth, bool isMax, ChessPiece[,] board)

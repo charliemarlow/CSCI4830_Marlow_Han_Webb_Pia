@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
 
     public bool raycastMode;
+    public Leaderboard leader;
 
     public void raycastSelect()
     {
@@ -15,7 +16,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        leader = GetComponent<Leaderboard>();
     }
 
     public void clackNoise()
@@ -51,6 +52,9 @@ public class GameManager : MonoBehaviour
         // probably want options for leaderboard stuff here as well
         Debug.Log("Score = " + score);
         Debug.Log("Time = " + time);
+
+        string name = "tester";
+        leader.writeToLeaderboard(score, time, name);
 
     }
 
