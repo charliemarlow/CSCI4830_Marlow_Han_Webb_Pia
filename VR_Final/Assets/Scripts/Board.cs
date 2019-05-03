@@ -400,7 +400,7 @@ public class Board : MonoBehaviour
             }
         }
     }
-    private void clearHighlights()
+    public void clearHighlights()
     {
         for (int i = 0; i < 8; i++)
         {

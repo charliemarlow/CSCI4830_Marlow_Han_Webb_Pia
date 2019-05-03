@@ -73,11 +73,11 @@ public class Hand1 : MonoBehaviour
         currentPiece = piece;
         piece.transform.localPosition = this.transform.position;
 
-        currentPiece.pickedUp(this.transform);
+       // currentPiece.pickedUp(this.transform);
     }
 
     private void drop(ChessPiece piece){
-        currentPiece.released(this.transform, new Vector3(0,0,0));
+       // currentPiece.released(this.transform, new Vector3(0,0,0));
         currentPiece = null;
     }
 }

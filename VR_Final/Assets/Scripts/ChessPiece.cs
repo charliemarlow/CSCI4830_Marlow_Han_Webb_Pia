@@ -15,6 +15,7 @@ public abstract class ChessPiece : MonoBehaviour
     private Quaternion rotationHolder;  //local offset
     public Board board;
     public Transform originalParent;
+    public Highlight currentHighlight = null;
 
     public void movePiece(int x, int y)
     {
@@ -128,53 +129,6 @@ public abstract class ChessPiece : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        if(holder != null)
-        {
-            Vector3 desiredPos = holder.localToWorldMatrix.MultiplyPoint(positionHolder);
-            Vector3 currentPos = this.transform.position;
-            Quaternion desiredRot = holder.rotation * rotationHolder;
-            Quaternion currentRot = this.transform.rotation;
-            rb.velocity = (desiredPos - currentPos) / Time.fixedDeltaTime;
-
-            Quaternion offsetRot = desiredRot * Quaternion.Inverse(currentRot);
-            float angle; Vector3 axis;
-            offsetRot.ToAngleAxis(out angle, out axis);
-            Vector3 rotationDiff = angle * Mathf.Deg2Rad * axis;
-            rb.angularVelocity = rotationDiff / Time.fixedDeltaTime;
-        }
-    }
-
-    //will cause object to be picked up
-    public void pickedUp(Transform t)
-    {
-        if (holder != null)
-        {
-            return;
-        }
-        positionHolder = t.worldToLocalMatrix.MultiplyPoint(this.transform.position);
-        rotationHolder = Quaternion.Inverse(t.rotation) * this.transform.rotation;
-        // maybe make non kinematic??
-        //rb.isKinematic = false;
-        
-        rb.useGravity = false;
-        rb.maxAngularVelocity = Mathf.Infinity;
-        holder = t;
-
-    }
-
-    public void released(Transform t, Vector3 vel)
-    {
-        if(t==holder)
-        {
-            rb.velocity = vel;
-            holder = null;
-            rb.isKinematic = true;
-            // make kinematic again if you changed it
-        }
-    }
     private Vector3 mOffset;
     private float mzCoord;
     private void OnMouseDown()
@@ -248,6 +202,7 @@ public abstract class ChessPiece : MonoBehaviour
                 this.transform.localRotation = Quaternion.Euler(0, -180, 0);
             }
             OnMouseUp();
+            currentHighlight = null;
         }
     }
 
@@ -280,11 +235,36 @@ public abstract class ChessPiece : MonoBehaviour
             {
                 Debug.Log("NULL this");
             }
-            board.onDrop(this.castARay());
+
+            if(currentHighlight != null)
+            {
+                Debug.Log("current highlight =" + currentHighlight.name);
+                board.onDrop(currentHighlight.transform);
+            }
+            else
+            {
+                board.onDrop(castARay());
+                /*
+                this.movePiece(currentX, currentY);
+                board.clearHighlights();
+                currentHighlight = null;
+                */
+            }
+            //board.onDrop(this.castARay());
         }
         else
         {
             this.movePiece(currentX, currentY);
+            board.clearHighlights();
+            currentHighlight = null;
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Highlight high = other.GetComponent<Highlight>();
+        if (high == null) return;
+        currentHighlight = high;
+        Debug.Log("hit that highlight");
     }
 }
