@@ -27,7 +27,7 @@ public class ChessOpponent : MonoBehaviour
         }
         else if (chessBoard.currentDifficulty == 1)
         {
-            Debug.Log("medium");
+            //Debug.Log("medium");
             return medium(board, validMoves);
         }
         return validMoves[0];
@@ -106,16 +106,16 @@ public class ChessOpponent : MonoBehaviour
                 if (logicalBoard[i,j] != null && currentPiece.isLight == team)
                 {
                     bool[,] pieceMoves = currentPiece.getValidMoves(logicalBoard, currentPiece);
-                    Debug.Log("Piece = " + currentPiece.name);
+                    //Debug.Log("Piece = " + currentPiece.name);
                     for (int x = 0; x < 8; x++)
                     {
                         for (int y = 0; y < 8; y++)
                         {
-                            Debug.Log(pieceMoves[x, y]);
+                            //Debug.Log(pieceMoves[x, y]);
                             if (pieceMoves[x, y])
                             {
                                 validMoves.Add((currentPiece, x, y));
-                                Debug.Log("added " + currentPiece.name);
+                                //Debug.Log("added " + currentPiece.name);
                             }
                         }
                     }

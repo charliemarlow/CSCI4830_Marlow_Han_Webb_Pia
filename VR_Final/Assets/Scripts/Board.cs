@@ -141,15 +141,15 @@ public class Board : MonoBehaviour
         
         // select new piece
         selectedPiece = logicalBoard[x,y];
-        Debug.Log("Just selected " + selectedPiece.name);
+        //Debug.Log("Just selected " + selectedPiece.name);
         if(selectedPiece.isLight != isLightTurn)
         {
             selectedPiece.movePiece(selectedPiece.currentX, selectedPiece.currentY);
             selectedPiece = null;
             return;
         }
-        Debug.Log("Selected " + selectedPiece.gameObject.name);
-        Debug.Log("Selected x " + selectedPiece.currentX + " Selected y = " + selectedPiece.currentY);
+        //Debug.Log("Selected " + selectedPiece.gameObject.name);
+        //ebug.Log("Selected x " + selectedPiece.currentX + " Selected y = " + selectedPiece.currentY);
         
         // now we want to get all possible moves
         bool[,] possible = selectedPiece.getValidMoves(logicalBoard, selectedPiece);
@@ -480,15 +480,18 @@ public class Board : MonoBehaviour
         bool validPiece = false;
 
         // get a raycast from bottom of chess piece
-        Vector3 localPos = highlight.localPosition;
+      
         if(highlight == null){
             Debug.Log("Null hit");
             // set the piece back to its position
             selectedPiece.movePiece(selectedPiece.currentX, selectedPiece.currentY);
+            clearHighlights();
             // more to force a drop
             selectedPiece = null;
+            return false;
         }
 
+        Vector3 localPos = highlight.localPosition;
         // check that it is equal to a chess piece OR a highlight
 
         // get local pos, get selected tile x and selected tile y

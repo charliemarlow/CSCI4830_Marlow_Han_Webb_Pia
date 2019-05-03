@@ -117,7 +117,7 @@ public abstract class ChessPiece : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         GameObject boardGo = GameObject.FindWithTag("board");
         board = boardGo.GetComponent<Board>();
-        Debug.Log(board.name + " in start method of chess piece " + this.name);
+        //Debug.Log(board.name + " in start method of chess piece " + this.name);
     }
 
     // Update is called once per frame
@@ -188,11 +188,17 @@ public abstract class ChessPiece : MonoBehaviour
         return Camera.main.ScreenToWorldPoint(mousePoint);
     }
 
+    bool isPickedUp;
     private void OnMouseOver()
     {
+        if (!isLight && Input.GetMouseButtonDown(0))
+        {
+            isPickedUp = true;
+            return;
+        }
         if (Input.GetMouseButtonDown(0) && board.isLightTurn)
         {
-            Debug.Log("I just got clicked");
+            //Debug.Log("I just got clicked");
             board.selectPiece(currentX, currentY);
         }
     }
@@ -204,13 +210,25 @@ public abstract class ChessPiece : MonoBehaviour
 
     private void OnMouseUp()
     {
+        if(isPickedUp && !isLight)
+        {
+            Pawn p = this.GetComponent<Pawn>();
+            if(p != null)
+            {
+                currentX = p.currentX;
+                currentY = p.currentY;
+            }
+            movePiece(currentX, currentY);
+            isPickedUp = false;
+            return;
+        }
         if(this == null || board == null)
         {
             return;
         }
         if (board.isLightTurn)
         {
-            Debug.Log("board " + board.name);
+            //Debug.Log("board " + board.name);
             if(board == null)
             {
                 Debug.Log("NULL BOARD");
