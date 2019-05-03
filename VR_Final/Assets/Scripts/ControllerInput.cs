@@ -43,7 +43,7 @@ public class ControllerInput : MonoBehaviour
     public void badHaptic()
     {
         //SteamVR_Action_Vibration.Execute(float secondsFromNow, float durationSeconds, float frequency, float amplitude, SteamVR_Input_Sources inputSource)
-        controller.hapticSignal.Execute(0f, .5f, 200, 1f, controller.inputSource);
+        controller.hapticSignal.Execute(0f, .8f, 200, 1f, controller.inputSource);
     }
 // Update is called once per frame
 void Update()
@@ -61,7 +61,6 @@ void Update()
 
         if (SteamVR_Actions._default.GrabPinch.GetStateDown(SteamVR_Input_Sources.Any) && !isGrabbed)
         {
-            Debug.Log("Down");
             isGrabbed = true;
             //putDownHaptic();
             if(recentCollision != null)
@@ -74,7 +73,6 @@ void Update()
             Debug.Log("Up");
             isGrabbed = false;
         }
-        Debug.Log("isGrabbed = "+ isGrabbed);
 
         if (wasTrue && !isGrabbed && currentPiece != null)
         {

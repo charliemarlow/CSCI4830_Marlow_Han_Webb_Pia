@@ -10,7 +10,6 @@ public class Board : MonoBehaviour
     public GameManager manager;
     public ChessOpponent opponent;
     public bool isLightTurn;
-    public ControllerInput input;
     private float selectedTileX = -1;
     private float selectedTileY = -1;
 
@@ -37,6 +36,9 @@ public class Board : MonoBehaviour
 
     private ChessPiece[,] logicalBoard = new ChessPiece[boardDimension, boardDimension];
     private GameObject[,] highlights = new GameObject[boardDimension, boardDimension];
+
+    public ControllerInput left;
+    public ControllerInput right;
 
     private float startTime;
     private float endTime;
@@ -215,6 +217,7 @@ public class Board : MonoBehaviour
             if (logicalBoard[x, y].CompareTag("king"))
             {
                 Debug.Log("Game Over");
+                if (selectedPiece != null && selectedPiece.currentInput != null) selectedPiece.currentInput.goodHaptic();
                 gameOver(0);
                 return;
             }
@@ -222,13 +225,13 @@ public class Board : MonoBehaviour
             {
                 manager.makeHappy();
                 //haptics here
-                input.badHaptic();
+                if (selectedPiece != null && selectedPiece.currentInput != null) selectedPiece.currentInput.badHaptic();
             }
             else
             {
                 manager.makeSad();
                 // haptics here
-                input.goodHaptic();
+                if (selectedPiece != null && selectedPiece.currentInput != null) selectedPiece.currentInput.goodHaptic();
             }
             Destroy(logicalBoard[x, y].gameObject);
         }
@@ -239,7 +242,7 @@ public class Board : MonoBehaviour
         // clack noise]
         manager.clackNoise();
         //haptics here
-        input.putDownHaptic();
+        if (selectedPiece != null && selectedPiece.currentInput != null) selectedPiece.currentInput.putDownHaptic();
 
         // set pawn's first move to false
         Pawn checkForFirst = selectedPiece.GetComponent<Pawn>();
@@ -285,6 +288,7 @@ public class Board : MonoBehaviour
         clearHighlights();
         isHighlighted = false;
         isLightTurn = !isLightTurn;
+        Debug.Log("Is light turn = " + isLightTurn);
         pieceIsInHand = false;
 
     }
@@ -379,12 +383,13 @@ public class Board : MonoBehaviour
             manager.finishedGame(1, endTime - startTime);
         else if (win == 1)
             manager.finishedGame(0, endTime - startTime);
-        else if (win == 3)
+        else if (win == 2)
             manager.finishedGame(.5f, endTime - startTime);
 
 
         instantiatePieces();
         firstMove = true;
+        isLightTurn = true;
     }
     private void paintHighlights(bool[,] possible)
     {
@@ -525,7 +530,7 @@ public class Board : MonoBehaviour
             if(piece.checkMate(logicalBoard, piece))
             {
                 Debug.Log("Game over");
-                gameOver(3);
+                gameOver(2);
             }
         }
 
@@ -554,19 +559,22 @@ public class Board : MonoBehaviour
                 {
                     Debug.Log("Game Over");
                     selectedPiece = movePiece;
-                    gameOver(2);
+                    left.badHaptic();
+                    right.badHaptic();
+                    inUse = false;
+                    gameOver(1);
                     return;
                 }
                 if (logicalBoard[x, y].isLight)
                 {
                     manager.makeHappy();
                     //haptics here
-                    input.badHaptic();
+                    if(selectedPiece != null && selectedPiece.currentInput != null) selectedPiece.currentInput.badHaptic();
                 }
                 else
                 {
                     manager.makeSad();
-                    input.goodHaptic();
+                    if (selectedPiece != null && selectedPiece.currentInput != null)  selectedPiece.currentInput.goodHaptic();
                 }
                 Destroy(logicalBoard[x, y].gameObject);
             }

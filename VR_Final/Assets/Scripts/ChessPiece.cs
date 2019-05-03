@@ -17,6 +17,7 @@ public abstract class ChessPiece : MonoBehaviour
     public Transform originalParent;
     public Highlight currentHighlight = null;
     public Quaternion originalRot;
+    public ControllerInput currentInput;
 
     public void movePiece(int x, int y)
     {
@@ -179,10 +180,12 @@ public abstract class ChessPiece : MonoBehaviour
         {
             board.selectPiece(currentX, currentY);
         }
+        currentInput = input;
     }
 
     public void release(ControllerInput input)
     {
+        currentInput = input;
         if(transform.parent == input.gameObject.transform)
         {
             if(originalParent != input.gameObject.transform)
@@ -210,8 +213,10 @@ public abstract class ChessPiece : MonoBehaviour
                 currentX = p.currentX;
                 currentY = p.currentY;
             }
+            currentInput.badHaptic();
             movePiece(currentX, currentY);
             isPickedUp = false;
+            currentInput = null;
             return;
         }
         if(this == null || board == null)
@@ -250,6 +255,8 @@ public abstract class ChessPiece : MonoBehaviour
         else
         {
             // bad haptic
+            Debug.Log("Bad haptics");
+            if(currentInput != null) currentInput.badHaptic();
             this.movePiece(currentX, currentY);
             board.clearHighlights();
             currentHighlight = null;
