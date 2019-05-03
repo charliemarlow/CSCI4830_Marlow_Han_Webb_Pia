@@ -37,6 +37,10 @@ public class Board : MonoBehaviour
     private ChessPiece[,] logicalBoard = new ChessPiece[boardDimension, boardDimension];
     private GameObject[,] highlights = new GameObject[boardDimension, boardDimension];
 
+    // set levels 0 to N
+    public enum difficulty { EASY, CHALLENGE };
+    public int currentDifficulty = 0;
+
     private void instantiatePiece(GameObject prefab, int newX, int newZ)
     {
 

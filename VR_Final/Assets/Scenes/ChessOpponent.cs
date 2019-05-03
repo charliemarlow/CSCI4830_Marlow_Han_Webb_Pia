@@ -21,8 +21,31 @@ public class ChessOpponent : MonoBehaviour
         logicalBoard = board;
 
         List<(ChessPiece, int x, int y)> validMoves = getMoves();
+        if (chessBoard.currentDifficulty == 0)
+        {
+            return easy(board, validMoves);
+        }
+        else if (chessBoard.currentDifficulty == 1)
+        {
+            return medium(board, validMoves);
+        }
+        return validMoves[0];
+    }
+
+    public (ChessPiece, int, int) easy(ChessPiece[,] board, List<(ChessPiece, int x, int y)> validMoves)
+    {
+        logicalBoard = board;
         Random rand = new Random();
-        int r = (int) Random.Range(0f, (float)validMoves.Count);
+        int r = (int)Random.Range(0f, (float)validMoves.Count);
+        (ChessPiece, int, int) selection = validMoves[r];
+        return selection;
+    }
+
+    public (ChessPiece, int, int) medium(ChessPiece[,] board, List<(ChessPiece, int x, int y)> validMoves)
+    {
+        logicalBoard = board;
+        Random rand = new Random();
+        int r = (int)Random.Range(0f, (float)validMoves.Count);
         (ChessPiece, int, int) selection = validMoves[r];
 
         int maxValue = 0;
@@ -34,17 +57,17 @@ public class ChessOpponent : MonoBehaviour
             if (logicalBoard[x, y] != null)
             {
                 int value = getValue(logicalBoard[x, y]);
-                if(value > maxValue)
+                if (value > maxValue)
                 {
                     maxValue = value;
                     selection = validMoves[i];
                 }
             }
         }
-        Debug.Log("Rand = " + r);
-        Debug.Log("Count = " + validMoves.Count);
+
         return selection;
     }
+
 
 
     public List<(ChessPiece, int x, int y)> getMoves()
