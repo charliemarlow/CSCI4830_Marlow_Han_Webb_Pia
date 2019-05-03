@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+
+    public bool raycastMode;
+
+    public void raycastSelect()
+    {
+        // gets called when raycastMode is on and trigger is pulled
+    }
+
     // Start is called before the first frame update
     void Start()
     {

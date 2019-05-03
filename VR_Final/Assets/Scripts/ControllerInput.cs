@@ -5,6 +5,8 @@ using Valve.VR;
 
 public class ControllerInput : MonoBehaviour
 {
+
+    public GameManager gm;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +26,14 @@ void Update()
         bool wasTrue = isGrabbed;
         //Debug.Log(SteamVR_Actions._default.GrabPinch.G);
 
+        if (gm.raycastMode)
+        {
+            if (SteamVR_Actions._default.GrabPinch.GetStateDown(SteamVR_Input_Sources.Any))
+            {
+                gm.raycastSelect();
+            }
+            return;
+        }
 
         if (SteamVR_Actions._default.GrabPinch.GetStateDown(SteamVR_Input_Sources.Any) && !isGrabbed)
         {
