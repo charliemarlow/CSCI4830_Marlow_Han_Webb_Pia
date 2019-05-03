@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Hand1 : MonoBehaviour
 {
 
@@ -12,6 +13,7 @@ public class Hand1 : MonoBehaviour
     public float pickupThreshold;
     public float releaseThreshold;
 
+
     // responsible for calling board funcs 
     // VR pickup
     // on drop 
@@ -19,8 +21,8 @@ public class Hand1 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
+
 
     // Update is called once per frame
     void Update()

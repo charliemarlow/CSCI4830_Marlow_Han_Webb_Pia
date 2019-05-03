@@ -14,10 +14,11 @@ public abstract class ChessPiece : MonoBehaviour
     private Vector3 positionHolder;     //local offset
     private Quaternion rotationHolder;  //local offset
     public Board board;
+    public Transform originalParent;
 
     public void movePiece(int x, int y)
     {
-        transform.localPosition = new Vector3(x, 1, y);
+        transform.localPosition = new Vector3(x, 0, y);
         currentX = x;
         currentY = y;
     }
@@ -118,6 +119,7 @@ public abstract class ChessPiece : MonoBehaviour
         GameObject boardGo = GameObject.FindWithTag("board");
         board = boardGo.GetComponent<Board>();
         //Debug.Log(board.name + " in start method of chess piece " + this.name);
+        originalParent = transform.parent;
     }
 
     // Update is called once per frame
@@ -206,6 +208,47 @@ public abstract class ChessPiece : MonoBehaviour
     private void OnMouseDrag()
     {
         transform.position = getMouseWorldPos() + mOffset;
+    }
+
+    public void pickup(ControllerInput input)
+    {
+        Debug.Log("parent = " + input.gameObject.name);
+        transform.SetParent(input.gameObject.transform);
+
+        if (!isLight)
+        {
+            isPickedUp = true;
+            return;
+        }
+        if (board.isLightTurn)
+        {
+            board.selectPiece(currentX, currentY);
+        }
+    }
+
+    public void release(ControllerInput input)
+    {
+        if(transform.parent == input.gameObject.transform)
+        {
+            if(originalParent != input.gameObject.transform)
+            {
+                transform.SetParent(originalParent);
+                
+            }
+            else
+            {
+                transform.SetParent(board.transform);
+            }
+            if (isLight)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
+            else
+            {
+                this.transform.localRotation = Quaternion.Euler(0, -180, 0);
+            }
+            OnMouseUp();
+        }
     }
 
     private void OnMouseUp()
