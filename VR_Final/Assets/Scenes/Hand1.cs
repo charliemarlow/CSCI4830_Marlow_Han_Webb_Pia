@@ -30,6 +30,7 @@ public class Hand1 : MonoBehaviour
 
 
     private void onTriggerStay(Collider c){
+        Debug.Log("collider name " + c.name);
         Rigidbody rb = c.attachedRigidbody;
         if(rb == null) return;
 
@@ -47,6 +48,7 @@ public class Hand1 : MonoBehaviour
         {
             triggerValue = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger);
         }
+        
 
         if (currentPiece == null && triggerValue > pickupThreshold)
         {
@@ -65,7 +67,10 @@ public class Hand1 : MonoBehaviour
     }
 
     private void pickup(ChessPiece piece){
+        Debug.Log("being picked up");
         currentPiece = piece;
+        piece.transform.localPosition = this.transform.position;
+
         currentPiece.pickedUp(this.transform);
     }
 

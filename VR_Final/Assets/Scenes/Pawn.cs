@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class Pawn : ChessPiece
 {
-    bool isFirstMove = true;
+    public bool isFirstMove = true;
+
+    public void setFirstMove(bool first)
+    {
+        isFirstMove = first;
+    }
 
     public override bool[,] getValidMoves(ChessPiece[,] board, ChessPiece selectedPiece)
     {
@@ -50,13 +55,17 @@ public class Pawn : ChessPiece
             && board[selectedPiece.currentX, forward] == null)
         {
             validMoves[selectedPiece.currentX, forward] = true;
+            Debug.Log("x = " + selectedPiece.currentX);
+            Debug.Log("Y = " + forward);
         }
 
+        // is first move is now set in board in select highlight
+        /*
         if (isFirstMove && hasValidMoves(validMoves))
         {
             isFirstMove = false;
         }
-
+        */
 
         return validMoves;
     }
@@ -141,9 +150,7 @@ public class Pawn : ChessPiece
     }
 
     // Start is called before the first frame update
-    void Start()
-    {
-    }
+
 
     // Update is called once per frame
     void Update()

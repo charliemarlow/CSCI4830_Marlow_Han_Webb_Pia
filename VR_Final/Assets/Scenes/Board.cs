@@ -7,6 +7,8 @@ public class Board : MonoBehaviour
 
     public GameObject graphicChessBoard;
     public GameObject highlightPrefab;
+    public GameManager manager;
+    public ChessOpponent opponent;
     public bool isLightTurn;
     private float selectedTileX = -1;
     private float selectedTileY = -1;
@@ -46,6 +48,15 @@ public class Board : MonoBehaviour
         ChessPiece p = piece.gameObject.GetComponent<ChessPiece>();
         p.movePiece(newX, newZ);
         p.isLight = setColor(newZ);
+        
+        // set proper rotation for dark pieces
+        if (!p.isLight)
+        {
+            Vector3 rotation = p.transform.rotation.eulerAngles;
+            rotation = new Vector3(rotation.x, rotation.y + 180, rotation.z);
+            p.transform.rotation = Quaternion.Euler(rotation);
+            //p.transform.localRotation = new Vector3(90, 0, 0);
+        }
         logicalBoard[newX, newZ] = p;
 
     }
@@ -109,9 +120,10 @@ public class Board : MonoBehaviour
     {
         instantiatePieces();
         isLightTurn = true;
+        gameCam = GameObject.FindObjectOfType<Camera>();
     }
 
-    private void selectPiece(int x, int y)
+    public void selectPiece(int x, int y)
     {
         if (logicalBoard[x,y] == null) return;
         
@@ -130,6 +142,7 @@ public class Board : MonoBehaviour
 
         // then we want to paint those moves on the board with the highlight prefab
         paintHighlights(possible);
+        pieceIsInHand = true;
     }
 
 
@@ -162,7 +175,16 @@ public class Board : MonoBehaviour
     private void selectHighlight(int x, int y)
     {
         // don't move to null loc
-        if (highlights[x,y] == null) return;
+        
+        if (highlights[x,y] == null)
+        {
+            Debug.Log("null return");
+            selectedPiece.movePiece(selectedPiece.currentX, selectedPiece.currentY);
+            clearHighlights();
+            isLightTurn = !isLightTurn;
+            return;
+        }
+        
 
 
         // move the piece to the new location
@@ -180,18 +202,125 @@ public class Board : MonoBehaviour
                 gameOver();
                 return;
             }
+            if (logicalBoard[x, y].isLight)
+            {
+                manager.makeHappy();
+            }
+            else
+            {
+                manager.makeSad();
+            }
             Destroy(logicalBoard[x, y].gameObject);
         }
 
         // set the piece in new loc
         logicalBoard[x, y] = selectedPiece;
         selectedPiece.movePiece(x, y);
+
+        // set pawn's first move to false
+        Pawn checkForFirst = selectedPiece.GetComponent<Pawn>();
+        if(checkForFirst != null)
+        {
+            Debug.Log("checking for move");
+            checkForFirst.setFirstMove(false);
+
+            // check for pawn promotion
+            //if(checkForFirst.currentX)
+            if (checkForFirst.isLight)
+            {
+                if(selectedPiece.currentY == 7)
+                {
+                    Debug.Log("it is 7");
+                    string type = manager.pawnPromote();
+                    promotePawn(type, true);
+                }
+            }
+            else
+            {
+                /*
+                if(selectedPiece.currentY == 0)
+                {
+                    string type = manager.pawnPromote();
+                    promotePawn(type, false);
+                }
+                */
+            }
+        }
         selectedPiece = null;
 
         // clear highlights
         clearHighlights();
         isHighlighted = false;
         isLightTurn = !isLightTurn;
+        pieceIsInHand = false;
+
+    }
+
+    private void promotePawn(string type, bool isLight)
+    {
+        switch (type) {
+            case "queen":
+                if (isLight)
+                {
+                    instantiatePiece(queenLightPrefab, selectedPiece.currentX, selectedPiece.currentY);
+                }
+                else
+                {
+                    instantiatePiece(queenDarkPrefab, selectedPiece.currentX, selectedPiece.currentY);
+                }
+                break;
+            case "king":
+                if (isLight)
+                {
+                    instantiatePiece(kingLightPrefab, selectedPiece.currentX, selectedPiece.currentY);
+                }
+                else
+                {
+                    instantiatePiece(kingDarkPrefab, selectedPiece.currentX, selectedPiece.currentY);
+                }
+                break;
+            case "pawn":
+                if (isLight)
+                {
+                    instantiatePiece(pawnLightPrefab, selectedPiece.currentX, selectedPiece.currentY);
+                }
+                else
+                {
+                    instantiatePiece(pawnDarkPrefab, selectedPiece.currentX, selectedPiece.currentY);
+                }
+                break;
+            case "knight":
+                if (isLight)
+                {
+                    instantiatePiece(knightLightPrefab, selectedPiece.currentX, selectedPiece.currentY);
+                }
+                else
+                {
+                    instantiatePiece(knightDarkPrefab, selectedPiece.currentX, selectedPiece.currentY);
+                }
+                break;
+            case "bishop":
+                if (isLight)
+                {
+                    instantiatePiece(bishopLightPrefab, selectedPiece.currentX, selectedPiece.currentY);
+                }
+                else
+                {
+                    instantiatePiece(bishopDarkPrefab, selectedPiece.currentX, selectedPiece.currentY);
+                }
+                break;
+            case "rook":
+                if (isLight)
+                {
+                    instantiatePiece(rookLightPrefab, selectedPiece.currentX, selectedPiece.currentY);
+                }
+                else
+                {
+                    instantiatePiece(rookDarkPrefab, selectedPiece.currentX, selectedPiece.currentY);
+                }
+                break;
+
+        }
     }
 
     private void gameOver()
@@ -281,7 +410,7 @@ public class Board : MonoBehaviour
         }
         return selectedTile;
     }
-    bool onMouseClick(){
+    public bool onMouseClick(){
         bool validPiece = false;
          RaycastHit hit;
         if (Physics.Raycast(gameCam.ScreenPointToRay(Input.mousePosition), out hit, 10))
@@ -303,6 +432,7 @@ public class Board : MonoBehaviour
                 validPiece = false;
             }
         }
+        selectPiece((int)selectedTileX, (int)selectedTileY);
         return validPiece;
     }
 
@@ -313,7 +443,8 @@ public class Board : MonoBehaviour
 
         // get a raycast from bottom of chess piece
         Vector3 localPos = highlight.localPosition;
-        if(localPos == null){
+        if(highlight == null){
+            Debug.Log("Null hit");
             // set the piece back to its position
             selectedPiece.movePiece(selectedPiece.currentX, selectedPiece.currentY);
             // more to force a drop
@@ -325,10 +456,11 @@ public class Board : MonoBehaviour
         // get local pos, get selected tile x and selected tile y
         float tempX = localPos.x;
         float tempY = localPos.z;
-
+        
         selectedTileX = getSelectedTileNumber(tempX);
         selectedTileY = getSelectedTileNumber(tempY);
-
+        Debug.Log(selectedTileX);
+        Debug.Log(selectedTileY);
         validPiece = true;
 
         // set valid piece to true, or set it to false
@@ -337,32 +469,83 @@ public class Board : MonoBehaviour
         return validPiece;
     }
 
+    private void detectStalemate()
+    {
+        if(selectedPiece != null)
+        {
+            ChessPiece piece = selectedPiece;
+            if(piece.checkMate(logicalBoard, piece))
+            {
+                Debug.Log("Game over");
+                gameOver();
+            }
+        }
+
+    }
+
+    private int count = 0;
+    bool inUse = false;
     // Update is called once per frame
     void Update()
     {
-        //bool validPiece = onMouseClick();
+        if (!isLightTurn && !inUse)
+        {
+            inUse = true;
+            (ChessPiece, int, int) myTuple = opponent.makeMove(logicalBoard);
+            ChessPiece movePiece = myTuple.Item1;
+            int x = myTuple.Item2;
+            int y = myTuple.Item3;
 
-       
+            logicalBoard[movePiece.currentX, movePiece.currentY] = null;
+            if (logicalBoard[x, y] != null)
+            {
+                if (logicalBoard[x, y].CompareTag("king"))
+                {
+                    Debug.Log("Game Over");
+                    selectedPiece = movePiece;
+                    gameOver();
+                    return;
+                }
+                if (logicalBoard[x, y].isLight)
+                {
+                    manager.makeHappy();
+                }
+                else
+                {
+                    manager.makeSad();
+                }
+                Destroy(logicalBoard[x, y].gameObject);
+            }
+            logicalBoard[x, y] = movePiece;
+            movePiece.movePiece(x, y);
+            isLightTurn = true;
+            inUse = false;
+        }
         /*
+        bool validPiece = onMouseClick();
+
+
+        
         if (Input.GetMouseButtonDown(0))
         {
             if (selectedPiece == null && !isHighlighted && validPiece)
             {
                 Debug.Log("Selecting piece");
                 selectPiece((int)selectedTileX, (int)selectedTileY);
-            }
+                detectStalemate();
+            }/*
             else if (isHighlighted)
             {
                 Debug.Log("selecting highlight");
                 selectHighlight((int)selectedTileX, (int)selectedTileY);
-            }
+            }//
             else
             {
                 Debug.Log("Unselecting");
                 selectedPiece = null;
             }
-        }
-        */
+        }*/
+        
             
         }
 }

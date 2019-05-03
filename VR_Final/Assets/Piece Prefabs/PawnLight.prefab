@@ -96,6 +96,10 @@ MonoBehaviour:
   isLight: 0
   currentX: 0
   currentY: 0
+  rb: {fileID: 0}
+  holder: {fileID: 0}
+  board: {fileID: 0}
+  isFirstMove: 1
 --- !u!54 &4224454127576211913
 Rigidbody:
   m_ObjectHideFlags: 0

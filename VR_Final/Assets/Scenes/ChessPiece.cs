@@ -13,10 +13,11 @@ public abstract class ChessPiece : MonoBehaviour
     public Transform holder;
     private Vector3 positionHolder;     //local offset
     private Quaternion rotationHolder;  //local offset
+    public Board board;
 
     public void movePiece(int x, int y)
     {
-        transform.localPosition = new Vector3(x, 0, y);
+        transform.localPosition = new Vector3(x, 1, y);
         currentX = x;
         currentY = y;
     }
@@ -35,6 +36,43 @@ public abstract class ChessPiece : MonoBehaviour
         return false;
     }
 
+    public bool checkMate(ChessPiece[,] board, ChessPiece piece)
+    {
+
+        // check mate == no moves for a specific color
+        bool[,] moves = new bool[8, 8];
+        bool targetTeam = piece.isLight;
+        //go through each spot on the board, calculate moves, merge them
+        for (int i = 0; i < 8; i++)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+                if (board[i, j] != null)
+                {
+                    ChessPiece currentPiece = board[i, j];
+                    if (targetTeam == currentPiece.isLight)
+                    {
+                        bool[,] individualMoves = currentPiece.getValidMoves(board, currentPiece);
+                        mergeLists(moves, individualMoves);
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < 8; i++)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+                if (moves[i, j])
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     public bool[,] mergeLists(bool[,] moves1, bool[,] moves2)
     {
         bool[,] moves = new bool[8, 8];
@@ -49,7 +87,7 @@ public abstract class ChessPiece : MonoBehaviour
         return moves;
     }
 
-    public Vector3 castARay(){
+    public Transform castARay(){
         Vector3 localPosition = new Vector3(0,0,0);
         // cast a ray out
         BoxCollider collider = this.GetComponentInChildren<BoxCollider>();
@@ -57,13 +95,13 @@ public abstract class ChessPiece : MonoBehaviour
         Vector3 direction = collider.transform.TransformDirection(Vector3.forward);
         RaycastHit hit;
         float maxDistance = 100f;
-
+        Debug.Log("casting");
         if(Physics.Raycast(boxPos, direction, out hit, maxDistance)){
             Debug.Log("hit = " + hit.transform.name);
-            return hit.transform.localPosition;
+            return hit.transform;
         }else{
             Debug.Log("NULL");
-            return localPosition;
+            return null;
         }
 
         // get the hit
@@ -76,7 +114,10 @@ public abstract class ChessPiece : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-         rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
+        GameObject boardGo = GameObject.FindWithTag("board");
+        board = boardGo.GetComponent<Board>();
+        Debug.Log(board.name + " in start method of chess piece " + this.name);
     }
 
     // Update is called once per frame
@@ -114,7 +155,7 @@ public abstract class ChessPiece : MonoBehaviour
         positionHolder = t.worldToLocalMatrix.MultiplyPoint(this.transform.position);
         rotationHolder = Quaternion.Inverse(t.rotation) * this.transform.rotation;
         // maybe make non kinematic??
-        rb.isKinematic = false;
+        //rb.isKinematic = false;
         
         rb.useGravity = false;
         rb.maxAngularVelocity = Mathf.Infinity;
@@ -130,6 +171,59 @@ public abstract class ChessPiece : MonoBehaviour
             holder = null;
             rb.isKinematic = true;
             // make kinematic again if you changed it
+        }
+    }
+    private Vector3 mOffset;
+    private float mzCoord;
+    private void OnMouseDown()
+    {
+        mzCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
+        mOffset = gameObject.transform.position - getMouseWorldPos();
+    }
+
+    private Vector3 getMouseWorldPos()
+    {
+        Vector3 mousePoint = Input.mousePosition;
+        mousePoint.z = mzCoord;
+        return Camera.main.ScreenToWorldPoint(mousePoint);
+    }
+
+    private void OnMouseOver()
+    {
+        if (Input.GetMouseButtonDown(0) && board.isLightTurn)
+        {
+            Debug.Log("I just got clicked");
+            board.selectPiece(currentX, currentY);
+        }
+    }
+
+    private void OnMouseDrag()
+    {
+        transform.position = getMouseWorldPos() + mOffset;
+    }
+
+    private void OnMouseUp()
+    {
+        if(this == null || board == null)
+        {
+            return;
+        }
+        if (board.isLightTurn)
+        {
+            Debug.Log("board " + board.name);
+            if(board == null)
+            {
+                Debug.Log("NULL BOARD");
+            }
+            if(this == null)
+            {
+                Debug.Log("NULL this");
+            }
+            board.onDrop(this.castARay());
+        }
+        else
+        {
+            this.movePiece(currentX, currentY);
         }
     }
 }
