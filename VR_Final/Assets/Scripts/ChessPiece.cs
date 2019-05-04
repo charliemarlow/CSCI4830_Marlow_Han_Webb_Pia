@@ -256,7 +256,7 @@ public abstract class ChessPiece : MonoBehaviour
         {
             // bad haptic
             Debug.Log("Bad haptics");
-            if(currentInput != null) currentInput.badHaptic();
+            if(!board.debugMode && currentInput != null) currentInput.badHaptic();
             this.movePiece(currentX, currentY);
             board.clearHighlights();
             currentHighlight = null;

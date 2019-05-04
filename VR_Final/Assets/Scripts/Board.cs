@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
-
+    public bool debugMode;
     public GameObject graphicChessBoard;
     public GameObject highlightPrefab;
     public GameManager manager;
@@ -229,7 +229,7 @@ public class Board : MonoBehaviour
             if (logicalBoard[x, y].CompareTag("king"))
             {
                 Debug.Log("Game Over");
-                if (selectedPiece != null && selectedPiece.currentInput != null) selectedPiece.currentInput.goodHaptic();
+                if (!debugMode && selectedPiece != null && selectedPiece.currentInput != null) selectedPiece.currentInput.goodHaptic();
                 gameOver(0);
                 return;
             }
@@ -237,13 +237,13 @@ public class Board : MonoBehaviour
             {
                 manager.makeHappy();
                 //haptics here
-                if (selectedPiece != null && selectedPiece.currentInput != null) selectedPiece.currentInput.badHaptic();
+                if (!debugMode && selectedPiece != null && selectedPiece.currentInput != null) selectedPiece.currentInput.badHaptic();
             }
             else
             {
                 manager.makeSad();
                 // haptics here
-                if (selectedPiece != null && selectedPiece.currentInput != null) selectedPiece.currentInput.goodHaptic();
+                if (!debugMode && selectedPiece != null && selectedPiece.currentInput != null) selectedPiece.currentInput.goodHaptic();
             }
             Destroy(logicalBoard[x, y].gameObject);
         }
@@ -254,7 +254,7 @@ public class Board : MonoBehaviour
         // clack noise]
         manager.clackNoise();
         //haptics here
-        if (selectedPiece != null && selectedPiece.currentInput != null) selectedPiece.currentInput.putDownHaptic();
+        if (!debugMode && selectedPiece != null && selectedPiece.currentInput != null) selectedPiece.currentInput.putDownHaptic();
 
         // set pawn's first move to false
         Pawn checkForFirst = selectedPiece.GetComponent<Pawn>();
@@ -571,8 +571,11 @@ public class Board : MonoBehaviour
                 {
                     Debug.Log("Game Over");
                     selectedPiece = movePiece;
-                    left.badHaptic();
-                    right.badHaptic();
+                    if (!debugMode)
+                    {
+                        left.badHaptic();
+                        right.badHaptic();
+                    }
                     inUse = false;
                     gameOver(1);
                     return;
@@ -581,12 +584,12 @@ public class Board : MonoBehaviour
                 {
                     manager.makeHappy();
                     //haptics here
-                    if(selectedPiece != null && selectedPiece.currentInput != null) selectedPiece.currentInput.badHaptic();
+                    if(!debugMode && selectedPiece != null && selectedPiece.currentInput != null) selectedPiece.currentInput.badHaptic();
                 }
                 else
                 {
                     manager.makeSad();
-                    if (selectedPiece != null && selectedPiece.currentInput != null)  selectedPiece.currentInput.goodHaptic();
+                    if (!debugMode && selectedPiece != null && selectedPiece.currentInput != null)  selectedPiece.currentInput.goodHaptic();
                 }
                 Destroy(logicalBoard[x, y].gameObject);
             }

@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Time = " + time);
 
         string name = "tester";
-        leader.writeToLeaderboard(score, time, name);
+        //leader.writeToLeaderboard(score, time, name);
 
     }
 
