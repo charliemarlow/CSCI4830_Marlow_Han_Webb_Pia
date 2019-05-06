@@ -118,6 +118,15 @@ public class SetBoardTutorial : Tutorial
         index++;
     }
 
+    public void setBishops(){
+
+    }
+
+    private void setBoardTutorial(GameObject pawn, GameObject rook, GameObject knight, GameObject bishop, GameObject queen, GameObject king)
+    {
+        //pawnTutorial(pawn);
+
+    }
 
 
 }
