@@ -13,7 +13,7 @@ public class Board : MonoBehaviour
     private float selectedTileX = -1;
     private float selectedTileY = -1;
 
-    private const int boardDimension = 8;
+    public const int boardDimension = 8;
     private ChessPiece selectedPiece = null;
     private GameObject highlight = null;
     private bool isHighlighted = false;
@@ -90,31 +90,31 @@ public class Board : MonoBehaviour
         return z < 2 ? true : false;
     }
 
-    private void setUpRooks(GameObject prefab, int side)
+    public void setUpRooks(GameObject prefab, int side)
     {
         instantiatePiece(prefab, 0, side);
         instantiatePiece(prefab, 7, side);
     }
 
-    private void setUpKnights(GameObject prefab, int side)
+    public void setUpKnights(GameObject prefab, int side)
     {
         instantiatePiece(prefab, 1, side);
         instantiatePiece(prefab, 6, side);
     }
 
-    private void setUpBishops(GameObject prefab, int side)
+    public void setUpBishops(GameObject prefab, int side)
     {
         instantiatePiece(prefab, 2, side);
         instantiatePiece(prefab, 5, side);
     }
 
-    private void setUpRoyals(GameObject king, GameObject queen, int side)
+    public void setUpRoyals(GameObject king, GameObject queen, int side)
     {
         instantiatePiece(queen, 3, side);
         instantiatePiece(king, 4, side);
     }
 
-    private void instantiatePieces()
+    public void instantiatePieces()
     {
         int lightSide = 0;
         int darkSide = 7;

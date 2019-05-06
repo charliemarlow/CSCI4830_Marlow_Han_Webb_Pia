@@ -15,4 +15,20 @@ public class OpeningsTutorial : Tutorial
     {
         
     }
+
+    private void InstantiateWhiteOnly(){
+        int lightSide = 0;
+
+        // set up pawns
+        for (int i = 0; i < 8; i++)
+        {
+            board.instantiatePiece(board.pawnLightPrefab, i, lightSide + 1);
+        }
+
+        // set up light pieces
+        board.setUpRooks(board.rookLightPrefab, lightSide);
+        board.setUpKnights(board.knightLightPrefab, lightSide);
+        board.setUpBishops(board.bishopLightPrefab, lightSide);
+        board.setUpRoyals(board.kingLightPrefab, board.queenLightPrefab, lightSide);
+    }
 }
