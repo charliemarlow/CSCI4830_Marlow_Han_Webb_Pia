@@ -102,7 +102,7 @@ void Update()
         Debug.Log("Trigger = " + other.gameObject.name);
         ChessPiece piece = other.GetComponent<ChessPiece>();
         if (piece == null) return;
-        if (currentPiece != null) return;
+        if (currentPiece != null || !piece.isActiveAndEnabled) return;
 
         currentPiece = piece;
         Debug.Log("Grabbing piece " + piece.name);

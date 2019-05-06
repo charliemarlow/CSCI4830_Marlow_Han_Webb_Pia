@@ -43,7 +43,7 @@ public abstract class Tutorial : MonoBehaviour
     // Update is called once per frame
     public virtual void Update()
     {
-        
+
     }
 
     public void instantiateHighlight(int x, int y)
@@ -53,5 +53,23 @@ public abstract class Tutorial : MonoBehaviour
 
         Vector3 newLoc = new Vector3(x, 0, y);
         o.transform.localPosition = newLoc;
+        board.highlights[x, y] = o;
+    }
+
+    public void instantiatePiece(GameObject prefab, int newX, int newZ, bool active)
+    {
+
+        Vector3 position = new Vector3(newX, 0, newZ);
+        Quaternion rot = board.transform.rotation;
+        GameObject piece = Instantiate(prefab, position, rot, board.transform);
+        //piece.transform.localPosition = position;
+
+        ChessPiece p = piece.gameObject.GetComponent<ChessPiece>();
+        p.movePiece(newX, newZ);
+        p.isLight = true;
+        p.originalRot = p.transform.rotation;
+        board.logicalBoard[newX, newZ] = p;
+        p.GetComponent<ChessPiece>().enabled = active;
+
     }
 }

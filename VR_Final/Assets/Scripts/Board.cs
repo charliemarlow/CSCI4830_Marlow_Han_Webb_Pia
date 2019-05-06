@@ -300,6 +300,7 @@ public class Board : MonoBehaviour
                 */
             }
         }
+        ChessPiece oldPiece = selectedPiece;
         selectedPiece = null;
 
         // clear highlights
@@ -308,6 +309,10 @@ public class Board : MonoBehaviour
         isLightTurn = !isLightTurn;
         Debug.Log("Is light turn = " + isLightTurn);
         pieceIsInHand = false;
+        if (isTutorial)
+        {
+            tutorial.dropPiece(oldPiece);
+        }
 
     }
 
