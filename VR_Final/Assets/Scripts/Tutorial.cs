@@ -21,6 +21,7 @@ public abstract class Tutorial : MonoBehaviour
         board.setIsTutorial(true);
 
         // set which tutorial it is
+        board.tutorial = this;
         this.extraStart();
     }
 
@@ -52,22 +53,5 @@ public abstract class Tutorial : MonoBehaviour
 
         Vector3 newLoc = new Vector3(x, 0, y);
         o.transform.localPosition = newLoc;
-        board.highlights[x, y] = o;
-    }
-
-    public void instantiatePiece(GameObject prefab, int newX, int newZ)
-    {
-
-        Vector3 position = new Vector3(newX, 0, newZ);
-        Quaternion rot = board.transform.rotation;
-        GameObject piece = Instantiate(prefab, position, rot, board.transform);
-        //piece.transform.localPosition = position;
-
-        ChessPiece p = piece.gameObject.GetComponent<ChessPiece>();
-        p.movePiece(newX, newZ);
-        p.isLight = true;
-        p.originalRot = p.transform.rotation;
-        board.logicalBoard[newX, newZ] = p;
-
     }
 }

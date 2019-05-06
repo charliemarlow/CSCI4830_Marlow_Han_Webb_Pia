@@ -34,8 +34,8 @@ public class Board : MonoBehaviour
     public GameObject queenLightPrefab;
 
 
-    public ChessPiece[,] logicalBoard = new ChessPiece[boardDimension, boardDimension];
-    public GameObject[,] highlights = new GameObject[boardDimension, boardDimension];
+    private ChessPiece[,] logicalBoard = new ChessPiece[boardDimension, boardDimension];
+    private GameObject[,] highlights = new GameObject[boardDimension, boardDimension];
     public bool isTutorial = false;
 
     public ControllerInput left;
@@ -163,8 +163,6 @@ public class Board : MonoBehaviour
         if (isTutorial)
         {
             tutorial.pickupPiece(selectedPiece);
-            pieceIsInHand = true;
-
             return;
         }
         //Debug.Log("Just selected " + selectedPiece.name);
@@ -220,7 +218,7 @@ public class Board : MonoBehaviour
         {
             Debug.Log("null return");
             selectedPiece.movePiece(selectedPiece.currentX, selectedPiece.currentY);
-            if(!isTutorial) clearHighlights();
+            clearHighlights();
             isLightTurn = !isLightTurn;
             return;
         }
@@ -538,6 +536,8 @@ public class Board : MonoBehaviour
         
         selectedTileX = getSelectedTileNumber(tempX);
         selectedTileY = getSelectedTileNumber(tempY);
+        Debug.Log(selectedTileX);
+        Debug.Log(selectedTileY);
         validPiece = true;
 
         // set valid piece to true, or set it to false
@@ -570,7 +570,6 @@ public class Board : MonoBehaviour
         if (isTutorial)
         {
             isLightTurn = true;
-            return;
         }
 
 
