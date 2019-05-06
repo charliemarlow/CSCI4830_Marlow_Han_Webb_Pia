@@ -1,0 +1,57 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public abstract class Tutorial : MonoBehaviour
+{
+
+    public Board board;
+    // Start is called before the first frame update
+    void Start()
+    {
+        // get board reference
+        GameObject boardGo = GameObject.FindWithTag("board");
+        board = boardGo.GetComponent<Board>();
+
+        // clear board
+        board.clearBoard();
+        board.clearHighlights();
+
+        // set isTutorial to true
+        board.setIsTutorial(true);
+
+        // set which tutorial it is
+        board.tutorial = this;
+        this.extraStart();
+    }
+
+    public virtual void extraStart()
+    {
+
+    }
+
+    public virtual void pickupPiece(ChessPiece piece)
+    {
+
+    }
+
+    public virtual void dropPiece(ChessPiece piece)
+    {
+
+    }
+
+    // Update is called once per frame
+    public virtual void Update()
+    {
+        
+    }
+
+    public void instantiateHighlight(int x, int y)
+    {
+        GameObject highlightPrefab = board.highlightPrefab;
+        GameObject o = Instantiate(highlightPrefab, board.transform);
+
+        Vector3 newLoc = new Vector3(x, 0, y);
+        o.transform.localPosition = newLoc;
+    }
+}

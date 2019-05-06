@@ -36,7 +36,7 @@ public class Board : MonoBehaviour
 
     private ChessPiece[,] logicalBoard = new ChessPiece[boardDimension, boardDimension];
     private GameObject[,] highlights = new GameObject[boardDimension, boardDimension];
-    private bool isTutorial = false;
+    public bool isTutorial = false;
 
     public ControllerInput left;
     public ControllerInput right;
@@ -45,8 +45,10 @@ public class Board : MonoBehaviour
     private float endTime;
     bool firstMove = true;
     // set levels 0 to N
-    public enum difficulty { EASY, CHALLENGE };
+    public enum tutorialEnum { SET_BOARD, PIECE_MOVES, OPEN};
     public int currentDifficulty = 1;
+    public int tutorialType;
+    public Tutorial tutorial;
 
     public bool getIsTutorial()
     {
@@ -58,7 +60,7 @@ public class Board : MonoBehaviour
         isTutorial = tut;
     }
 
-    private void instantiatePiece(GameObject prefab, int newX, int newZ)
+    public void instantiatePiece(GameObject prefab, int newX, int newZ)
     {
 
         Vector3 position = new Vector3(newX, 0, newZ);
@@ -157,6 +159,12 @@ public class Board : MonoBehaviour
         
         // select new piece
         selectedPiece = logicalBoard[x,y];
+
+        if (isTutorial)
+        {
+            tutorial.pickupPiece(selectedPiece);
+            return;
+        }
         //Debug.Log("Just selected " + selectedPiece.name);
         if(selectedPiece.isLight != isLightTurn)
         {
@@ -370,22 +378,27 @@ public class Board : MonoBehaviour
         }
     }
 
+    public void clearBoard()
+    {
+        for (int i = 0; i < boardDimension; i++)
+        {
+            for (int j = 0; j < boardDimension; j++)
+            {
+                if (logicalBoard[i, j] != null)
+                {
+                    Destroy(logicalBoard[i, j].gameObject);
+                    logicalBoard[i, j] = null;
+
+                }
+            }
+        }
+    }
+
     private void gameOver(int win)
     {
         // win: 0 is user, 1 is AI, 3 is stalemate
         endTime = Time.time;
-        for(int i =0; i < boardDimension; i++)
-        {
-            for(int j =0; j< boardDimension; j++)
-            {
-                if(logicalBoard[i,j] != null)
-                {
-                    Destroy(logicalBoard[i, j].gameObject);
-                    logicalBoard[i, j] = null;
-                    
-                }
-            }
-        }
+        clearBoard();
         Destroy(selectedPiece.gameObject);
         clearHighlights();
 
@@ -415,6 +428,7 @@ public class Board : MonoBehaviour
                     Quaternion rot = this.transform.rotation;
                     GameObject piece = Instantiate(highlightPrefab, position, rot, this.transform);
                     piece.transform.localPosition = position;
+                    Debug.Log("placed highlight at" + i + " " + j);
                     highlights[i, j] = piece;
 
                 }
@@ -552,6 +566,13 @@ public class Board : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // always light turn during a tutorial
+        if (isTutorial)
+        {
+            isLightTurn = true;
+        }
+
+
         if (!isTutorial && !isLightTurn && !inUse)
         {
             inUse = true;

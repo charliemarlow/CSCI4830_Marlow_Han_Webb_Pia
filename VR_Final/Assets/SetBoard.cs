@@ -76,12 +76,21 @@ public class SetBoard : MonoBehaviour
         }
         p.originalRot = p.transform.rotation;
         logicalBoard[newX, newZ] = p;
+        p.isLight = true;
 
     }
 
     bool setColor(int z)
     {
         return z < 2 ? true : false;
+    }
+
+    private void setUpPawns(GameObject prefab, int side)
+    {
+        for (int i = 0; i < boardDimension; i++)
+        {
+            instantiatePiece(pawnLightPrefab, i, side + 1);
+        }
     }
 
     private void setUpRooks(GameObject prefab, int side)
@@ -533,6 +542,7 @@ public class SetBoard : MonoBehaviour
     private void pawnTutorial(GameObject pawn)
     {
         instantiatePiece(pawn, 4, 3);
+
 
 
     }
