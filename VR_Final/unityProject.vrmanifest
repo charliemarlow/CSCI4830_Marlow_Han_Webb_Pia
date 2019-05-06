@@ -5,7 +5,7 @@
       "app_key": "application.generated.unity.vr_final2.exe",
       "launch_type": "url",
       "url": "steam://launch/",
-      "action_manifest_path": "C:\\Users\\vel\\Documents\\GitHub\\VR_Final\\VR_Final\\actions.json",
+      "action_manifest_path": "C:\\Users\\SciLib\\Documents\\GitHub\\VR_Final\\VR_Final\\actions.json",
       "strings": {
         "en_us": {
           "name": "VR_FINAL2 [Testing]"
