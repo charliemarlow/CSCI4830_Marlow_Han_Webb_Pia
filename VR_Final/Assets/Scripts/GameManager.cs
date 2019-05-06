@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public bool raycastMode;
     public Leaderboard leader;
     public Board board;
+    public LaserFingers left;
+    public LaserFingers right;
 
     public void setTutorial(bool tut)
     {
@@ -19,9 +21,18 @@ public class GameManager : MonoBehaviour
         return board.getIsTutorial();
     }
 
-    public void raycastSelect()
+    public void raycastSelect(ControllerInput controller)
     {
         // gets called when raycastMode is on and trigger is pulled
+        if (controller.isLeft)
+        {
+            Debug.Log(left.selectRaycast().name);
+        }
+        else
+        {
+            Debug.Log(right.selectRaycast().name);
+        }
+
     }
 
     // Start is called before the first frame update
