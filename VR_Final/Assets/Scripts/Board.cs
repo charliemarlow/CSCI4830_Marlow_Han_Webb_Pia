@@ -49,6 +49,7 @@ public class Board : MonoBehaviour
     public int currentDifficulty = 1;
     public int tutorialType;
     public Tutorial tutorial;
+    public bool isMoveTutorial;
 
     public bool getIsTutorial()
     {
@@ -160,9 +161,10 @@ public class Board : MonoBehaviour
         // select new piece
         selectedPiece = logicalBoard[x,y];
 
-        if (isTutorial)
+        if (isTutorial && !isMoveTutorial)
         {
             tutorial.pickupPiece(selectedPiece);
+            pieceIsInHand = true;
             return;
         }
         //Debug.Log("Just selected " + selectedPiece.name);
@@ -181,6 +183,10 @@ public class Board : MonoBehaviour
         // then we want to paint those moves on the board with the highlight prefab
         paintHighlights(possible);
         pieceIsInHand = true;
+        if(isMoveTutorial){
+            tutorial.pickupPiece(selectedPiece);
+            pieceIsInHand = true;
+        }
     }
 
 
@@ -218,7 +224,7 @@ public class Board : MonoBehaviour
         {
             Debug.Log("null return");
             selectedPiece.movePiece(selectedPiece.currentX, selectedPiece.currentY);
-            clearHighlights();
+            if(!isTutorial || isMoveTutorial) clearHighlights();
             isLightTurn = !isLightTurn;
             return;
         }
@@ -419,7 +425,7 @@ public class Board : MonoBehaviour
         firstMove = true;
         isLightTurn = true;
     }
-    private void paintHighlights(bool[,] possible)
+    public void paintHighlights(bool[,] possible)
     {
         for (int i = 0; i < 8; i++)
         {
@@ -575,6 +581,7 @@ public class Board : MonoBehaviour
         if (isTutorial)
         {
             isLightTurn = true;
+            return;
         }
 
 
