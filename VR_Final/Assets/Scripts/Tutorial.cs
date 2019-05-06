@@ -55,7 +55,7 @@ public abstract class Tutorial : MonoBehaviour
         board.highlights[x, y] = o;
     }
 
-    public void instantiatePiece(GameObject prefab, int newX, int newZ)
+    public void instantiatePiece(GameObject prefab, int newX, int newZ, bool active)
     {
 
         Vector3 position = new Vector3(newX, 0, newZ);
@@ -68,6 +68,7 @@ public abstract class Tutorial : MonoBehaviour
         p.isLight = true;
         p.originalRot = p.transform.rotation;
         board.logicalBoard[newX, newZ] = p;
+        p.GetComponent<ChessPiece>().enabled = active;
 
     }
 }
