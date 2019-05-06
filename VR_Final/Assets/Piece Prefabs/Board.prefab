@@ -91,10 +91,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea25de8069af0f04ea661e848d563257, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugMode: 0
   graphicChessBoard: {fileID: 4079537145388782436}
   highlightPrefab: {fileID: 8339448536720458273, guid: b8f8f867405b64446ad66556d4279448,
     type: 3}
+  manager: {fileID: 0}
+  opponent: {fileID: 0}
   isLightTurn: 0
+  gameCam: {fileID: 0}
   pawnDarkPrefab: {fileID: 1094308736908764041, guid: 97c0818710bb32444911390c560c3b41,
     type: 3}
   pawnLightPrefab: {fileID: 6754105337146642794, guid: 249a53d19f4f497458b7b026afdbabbd,
@@ -119,3 +123,6 @@ MonoBehaviour:
     type: 3}
   queenLightPrefab: {fileID: 19090523952948385, guid: c056b1627c1c27c4c80452f88c050ad7,
     type: 3}
+  left: {fileID: 0}
+  right: {fileID: 0}
+  currentDifficulty: 1

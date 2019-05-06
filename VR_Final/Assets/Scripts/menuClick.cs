@@ -5,6 +5,7 @@ public class menuClick : MonoBehaviour
 {
     //Make sure to attach these Buttons in the Inspector
     public Button m_YourFirstButton, m_YourSecondButton, m_YourThirdButton;
+    public Canvas menu;
 
     void Start()
     {
@@ -15,6 +16,14 @@ public class menuClick : MonoBehaviour
         m_YourThirdButton.onClick.AddListener(TaskOnClick);
     }
 
+    private void Update()
+    {
+        if(Input.GetMouseButtonDown(0))
+        {
+            menu.enabled = false;
+            
+        }
+    }
     void TaskOnClick()
     {
         //Output this to console when Button1 or Button3 is clicked

@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 1092511911923837331}
   - component: {fileID: 1092511911923837340}
   - component: {fileID: 4828668122759441945}
+  - component: {fileID: -4792007759449827767}
+  - component: {fileID: -2966121679048664318}
   m_Layer: 0
   m_Name: PawnDark
   m_TagString: chess
@@ -105,7 +107,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1094308736908764041}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.37795478
   m_Height: 1.2133604
@@ -126,6 +128,37 @@ MonoBehaviour:
   isLight: 0
   currentX: 0
   currentY: 0
+  rb: {fileID: 0}
+  holder: {fileID: 0}
+--- !u!114 &-4792007759449827767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094308736908764041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c0fdd0443a5364d870763598f1c300, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-2966121679048664318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094308736908764041}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59088f3703dec8744977d33250117144, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLight: 0
+  currentX: 0
+  currentY: 0
+  rb: {fileID: 0}
+  holder: {fileID: 0}
 --- !u!1 &6038459156605281997
 GameObject:
   m_ObjectHideFlags: 0
