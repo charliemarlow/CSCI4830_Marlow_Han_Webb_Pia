@@ -99,7 +99,7 @@ public class SetBoardTutorial : Tutorial
                 instantiateHighlight(0, 0);
                 break;
             case 2:
-                // horse
+                // knight
                 instantiateHighlight(1,0);
                 break;
             case 3:
@@ -116,16 +116,6 @@ public class SetBoardTutorial : Tutorial
                 break;
         }
         index++;
-    }
-
-    public void setBishops(){
-
-    }
-
-    private void setBoardTutorial(GameObject pawn, GameObject rook, GameObject knight, GameObject bishop, GameObject queen, GameObject king)
-    {
-        //pawnTutorial(pawn);
-
     }
 
 

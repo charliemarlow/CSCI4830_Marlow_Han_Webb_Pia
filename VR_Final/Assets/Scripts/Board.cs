@@ -34,8 +34,8 @@ public class Board : MonoBehaviour
     public GameObject queenLightPrefab;
 
 
-    private ChessPiece[,] logicalBoard = new ChessPiece[boardDimension, boardDimension];
-    private GameObject[,] highlights = new GameObject[boardDimension, boardDimension];
+    public ChessPiece[,] logicalBoard = new ChessPiece[boardDimension, boardDimension];
+    public GameObject[,] highlights = new GameObject[boardDimension, boardDimension];
     public bool isTutorial = false;
 
     public ControllerInput left;
