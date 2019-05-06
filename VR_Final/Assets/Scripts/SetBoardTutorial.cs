@@ -8,31 +8,43 @@ public class SetBoardTutorial : Tutorial
     public (int, int) lastHighlightLocation;
     public int i =0;
 
+
+
+    public override void pickupPiece(ChessPiece piece)
+    {
+        //Destroy(piece.gameObject);
+        Debug.Log("I picked up " + piece.name);
+    }
     public override void extraStart()
     {
         instantiateHighlight(0, 1);
-        placePiece(board.pawnLightPrefab);
+        kingTutorial(board.kingLightPrefab);
+        board.tutorial = this; //IMPORTANT
     }
 
-
-    public override void pickupPiece(ChessPiece piece){
-
+    private void rookTutorial(GameObject rook)
+    {
+        instantiatePiece(rook, 4, 3);
     }
 
-    public override void dropPiece(ChessPiece piece){
-
+    private void knightTutorial(GameObject knight)
+    {
+        instantiatePiece(knight, 4, 3);
     }
 
-    public void setPawns(){
-
+    private void bishopTutorial(GameObject bishop)
+    {
+        instantiatePiece(bishop, 4, 3);
     }
 
-    public void setRooks(){
-
+    private void queenTutorial(GameObject queen)
+    {
+        instantiatePiece(queen, 4, 3);
     }
 
-    public void setKnights(){
-
+    private void kingTutorial(GameObject king)
+    {
+        instantiatePiece(king, 4, 3);
     }
 
     public void setBishops(){

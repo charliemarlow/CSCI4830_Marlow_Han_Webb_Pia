@@ -176,7 +176,7 @@ public abstract class ChessPiece : MonoBehaviour
             isPickedUp = true;
             return;
         }
-        if (board.isLightTurn)
+        if (board.isLightTurn || board.getIsTutorial())
         {
             board.selectPiece(currentX, currentY);
         }
@@ -225,7 +225,7 @@ public abstract class ChessPiece : MonoBehaviour
         {
             return;
         }
-        if (board.isLightTurn)
+        if (board.isLightTurn || board.getIsTutorial())
         {
             //Debug.Log("board " + board.name);
             if(board == null)
@@ -237,7 +237,7 @@ public abstract class ChessPiece : MonoBehaviour
                 Debug.Log("NULL this");
             }
 
-            
+            Debug.Log("on mouse up");
             if(currentHighlight != null)
             {
                 Debug.Log("current highlight =" + currentHighlight.name);
@@ -248,6 +248,7 @@ public abstract class ChessPiece : MonoBehaviour
                 Transform t = castARay();
                 if(t == null)
                 {
+                    Debug.Log("early null return");
                     this.movePiece(currentX, currentY);
                     board.clearHighlights();
                     currentHighlight = null;
