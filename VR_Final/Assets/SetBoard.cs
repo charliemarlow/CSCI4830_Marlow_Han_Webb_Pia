@@ -113,8 +113,9 @@ public class SetBoard : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //todo
+        
         gameCam = GameObject.FindObjectOfType<Camera>();
+        pawnTutorial(pawnLightPrefab);
 
     }
 

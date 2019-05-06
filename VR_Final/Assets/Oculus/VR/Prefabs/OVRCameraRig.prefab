@@ -546,11 +546,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 487254}
     m_Modifications:
-    - target: {fileID: 5966321003730726397, guid: a205bf7f8ee120848bd6d2230026180a,
-        type: 3}
-      propertyPath: m_Name
-      value: Laser
-      objectReference: {fileID: 0}
     - target: {fileID: 5966321003730726398, guid: a205bf7f8ee120848bd6d2230026180a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -605,6 +600,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5966321003730726397, guid: a205bf7f8ee120848bd6d2230026180a,
+        type: 3}
+      propertyPath: m_Name
+      value: Laser
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a205bf7f8ee120848bd6d2230026180a, type: 3}
@@ -621,11 +621,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 482130}
     m_Modifications:
-    - target: {fileID: 5966321003730726397, guid: a205bf7f8ee120848bd6d2230026180a,
-        type: 3}
-      propertyPath: m_Name
-      value: Laser
-      objectReference: {fileID: 0}
     - target: {fileID: 5966321003730726398, guid: a205bf7f8ee120848bd6d2230026180a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -680,6 +675,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5966321003730726397, guid: a205bf7f8ee120848bd6d2230026180a,
+        type: 3}
+      propertyPath: m_Name
+      value: Laser
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a205bf7f8ee120848bd6d2230026180a, type: 3}
