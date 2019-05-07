@@ -9,52 +9,44 @@ public class OpeningsTutorial : Tutorial
     // Start is called before the first frame update
     public override void extraStart()
     {
-        InstantiateWhiteOnly();
+        setNonMoveableWhite();
         board.tutorial = this;
+        nextMove();
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void dropPiece(ChessPiece piece)
     {
-        
+        nextMove();
     }
 
-    private void InstantiateWhiteOnly(){
-        int lightSide = 0;
-
-        // set up pawns
-        for (int i = 0; i < 8; i++)
-        {
-            board.instantiatePiece(board.pawnLightPrefab, i, lightSide + 1);
-        }
-
-        // set up light pieces
-        board.setUpRooks(board.rookLightPrefab, lightSide);
-        board.setUpKnights(board.knightLightPrefab, lightSide);
-        board.setUpBishops(board.bishopLightPrefab, lightSide);
-        board.setUpRoyals(board.kingLightPrefab, board.queenLightPrefab, lightSide);
-    }
-
-    private void nextMove(){
-
+    private void nextMove()
+    {
         switch (index)
         {
-
             case 0:
-                // pawn
-                
+                Destroy(board.logicalBoard[3, 1].gameObject);
+                board.instantiatePiece(board.pawnLightPrefab, 3, 1);
+                instantiateHighlight(3, 1);
+                instantiateHighlight(3, 3);
                 break;
             case 1:
-                
-               
+                Destroy(board.logicalBoard[2, 1].gameObject);
+                board.instantiatePiece(board.pawnLightPrefab, 2, 1);
+                instantiateHighlight(2, 1);
+                instantiateHighlight(2, 3);
                 break;
             case 2:
-                
+                Destroy(board.logicalBoard[3, 0].gameObject);
+                board.instantiatePiece(board.knightLightPrefab, 3, 0);
+                instantiateHighlight(3, 0);
+                instantiateHighlight(0, 3);
                 break;
             case 3:
-              
+                Destroy(board.logicalBoard[2, 0].gameObject);
+                board.instantiatePiece(board.knightLightPrefab, 2, 0);
+                instantiateHighlight(2, 0);
+                instantiateHighlight(5, 3);
                 break;
-         
         }
         index++;
     }

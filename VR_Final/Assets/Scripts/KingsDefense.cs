@@ -19,8 +19,7 @@ public class KingsDefense : Tutorial
     }
 
 
-      private void nextMove(){
-
+    private void nextMove(){
         switch (index)
         {
             case 0:
