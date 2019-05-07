@@ -6,7 +6,19 @@ public abstract class Tutorial : MonoBehaviour
 {
 
     public Board board;
+    public static List<AudioClip> voiceover;
+    public bool isDone;
     // Start is called before the first frame update
+    public static List<AudioClip> getAudio()
+    {
+        return voiceover;
+    }
+
+    public void setAudio(List<AudioClip> list)
+    {
+        voiceover = list;
+    }
+
     void Start()
     {
         // get board reference

@@ -71,7 +71,22 @@ public class ChessOpponent : MonoBehaviour
 
     public (ChessPiece, int, int) hard(ChessPiece[,] board, List<(ChessPiece, int x, int y)> validMoves)
     {
-
+        (ChessPiece, int, int) selectedPiece;
+        int maxValue = 0;
+        for (int i = 0; i < validMoves.Count; i++)
+        {
+            int x = validMoves[i].Item2;
+            int y = validMoves[i].Item3;
+            if (logicalBoard[x, y] != null)
+            {
+                int value = getValue(logicalBoard[x, y]);
+                if (value > maxValue)
+                {
+                    maxValue = value;
+                    selection = validMoves[i];
+                }
+            }
+        }
         return validMoves[0];
     }
     private int minimax(int depth, bool isMax, ChessPiece[,] board)

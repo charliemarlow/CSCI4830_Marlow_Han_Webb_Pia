@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-
+    private Tutorial tuts;
     public bool raycastMode;
     public Leaderboard leader;
     public Board board;
@@ -15,6 +15,31 @@ public class GameManager : MonoBehaviour
     public Tutorial moves;
     public Tutorial queens;
     public Tutorial kings;
+
+    public AudioClip setBoard;
+    public AudioClip setBoardPawn;
+    public AudioClip setBoardRook;
+    public AudioClip setBoardKnight;
+    public AudioClip setBoardBishop;
+    public AudioClip setBoardQueen;
+    public AudioClip setBoardKing;
+
+    public AudioClip move;
+    public AudioClip movePawn;
+    public AudioClip moveRook;
+    public AudioClip moveKnight;
+    public AudioClip moveBishop;
+    public AudioClip moveQueen;
+    public AudioClip moveKing;
+    public AudioClip openings;
+    public AudioClip kingsDefense;
+    public AudioClip queensGambit;
+
+    public List<AudioClip> setBoardClips = new List<AudioClip>();
+    public List<AudioClip> moveClips = new List<AudioClip>();
+    public List<AudioClip> kingClips = new List<AudioClip>();
+    public List<AudioClip> queenClips = new List<AudioClip>();
+
 
     public void setTutorial(bool tut)
     {
@@ -29,16 +54,38 @@ public class GameManager : MonoBehaviour
     public void startTutorial(int tut){
         switch(tut){
             case 0:
-                Instantiate(setPieces);
+                setBoardClips.Add(setBoard);
+                setBoardClips.Add(setBoardPawn);
+                setBoardClips.Add(setBoardRook);
+                setBoardClips.Add(setBoardKnight);
+                setBoardClips.Add(setBoardBishop);
+                setBoardClips.Add(setBoardQueen);
+                setBoardClips.Add(setBoardKing);
+                tuts = Instantiate(setPieces);
+                tuts.setAudio(setBoardClips);
                 break;
             case 1:
-                Instantiate(moves);
+                moveClips.Add(move);
+                moveClips.Add(movePawn);
+                moveClips.Add(moveRook);
+                moveClips.Add(moveKnight);
+                moveClips.Add(moveBishop);
+                moveClips.Add(moveQueen);
+                moveClips.Add(moveKing);
+                tuts = Instantiate(moves);
+                tuts.setAudio(moveClips);
                 break;
             case 2:
-                Instantiate(queens);
+                queenClips.Add(openings);
+                queenClips.Add(queensGambit);
+                tuts = Instantiate(queens);
+                tuts.setAudio(queenClips);
                 break;
             case 3:
+                kingClips.Add(openings);
+                kingClips.Add(kingsDefense);
                 Instantiate(kings);
+                tuts.setAudio(setBoardClips);
                 break;
         }
 
