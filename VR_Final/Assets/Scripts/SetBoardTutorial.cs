@@ -5,6 +5,8 @@ using UnityEngine;
 public class SetBoardTutorial : Tutorial
 {
 
+    private List<AudioClip> soundClips = getAudio();
+    AudioSource mysound;
     public (int, int) lastHighlightLocation;
 
     public List<GameObject> myPrefabs = new List<GameObject>();
@@ -59,6 +61,7 @@ public class SetBoardTutorial : Tutorial
             // this means they finished the tutorial
             // some sort of congratulations?
             // go back to main menu
+            isDone = true;
         }
     }
 
@@ -75,6 +78,8 @@ public class SetBoardTutorial : Tutorial
 
         pieceTutorial(myPrefabs[index]);
 
+        mysound = GetComponent<AudioSource>();
+        mysound.PlayOneShot(soundClips[0], 0.8f);
         board.tutorial = this; //IMPORTANT
     }
 
@@ -95,26 +100,32 @@ public class SetBoardTutorial : Tutorial
             case 0:
                 // pawn
                 instantiateHighlight(0, 1);
+                mysound.PlayOneShot(soundClips[1], 0.8f);
                 break;
             case 1:
                 //rook
                 instantiateHighlight(0, 0);
+                mysound.PlayOneShot(soundClips[2], 0.8f);
                 break;
             case 2:
                 // knight
+                mysound.PlayOneShot(soundClips[3], 0.8f);
                 instantiateHighlight(1,0);
                 break;
             case 3:
                 //bishop
+                mysound.PlayOneShot(soundClips[4], 0.8f);
                 instantiateHighlight(2, 0);
                 break;
             case 4:
                 //queen
+                mysound.PlayOneShot(soundClips[5], 0.8f);
                 instantiateHighlight(3, 0);
                 break;
             case 5:
                 //king
                 instantiateHighlight(4, 0);
+                mysound.PlayOneShot(soundClips[6], 0.8f);
                 break;
         }
         index++;

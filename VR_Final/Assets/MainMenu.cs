@@ -6,28 +6,38 @@ using UnityEngine.UI;
 public class MainMenu : MonoBehaviour
 {
 
-    public Canvas main, tutorial, leaderboard, difficulty;
-   
+    public Canvas menu;
+    public Button tutorial, start, leaderboard;
+    public ControllerInput left, right;
+    public LaserFingers laser;
+    private bool active;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        main.enabled = true;
-        tutorial.enabled = false;
-        leaderboard.enabled = false;
+        active = false;
+        menu.enabled = true;
+    }
+
+    void Update()
+    {
+
+
+
+
     }
 
 
     public void StartButton()
     {
-        main.enabled = false;
+
+        menu.enabled = false;
     }
 
     public void TutorialButton()
     {
-        main.enabled = false;
-        tutorial.enabled = true;
+
     }
 
     public void HighScoresButton()
