@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject currentLeaderboard;
     public GameObject leaderboardPrefab;
+    public Animator animate;
 
 
     public void setTutorial(bool tut)
@@ -151,10 +152,6 @@ public class GameManager : MonoBehaviour
                 counter = 10.0f;
             }
         }
-        
-        
-
-
     }
 
     public void exitTutorial(){
@@ -172,17 +169,22 @@ public class GameManager : MonoBehaviour
 
     public void makeHappy()
     {
-
+        animate.SetTrigger("Laugh");
     }
 
     public void makeSad()
     {
-
+        animate.SetTrigger("Cry");
     }
 
     public void makeThink()
     {
+        animate.SetTrigger("Think");
+    }
 
+    public void moveAvatarHand(ChessPiece movingPiece, int x, int y)
+    {
+            animate.SetTrigger("Move");
     }
 
     public string pawnPromote()
@@ -208,11 +210,5 @@ public class GameManager : MonoBehaviour
         //leader.writeToLeaderboard(score, time, name);
 
     }
-
-    public void moveAvatarHand(ChessPiece movingPiece, int x, int y)
-    {
-
-    }
-
 
 }
