@@ -8,7 +8,7 @@ public abstract class Tutorial : MonoBehaviour
     public Board board;
     public static AudioSource sSource;
     public static List<AudioClip> voiceover;
-    public bool isDone;
+    public bool isDone = false;
     // Start is called before the first frame update
 
     public static AudioSource getSource()

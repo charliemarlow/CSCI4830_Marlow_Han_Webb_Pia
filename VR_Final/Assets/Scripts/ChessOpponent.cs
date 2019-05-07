@@ -29,6 +29,12 @@ public class ChessOpponent : MonoBehaviour
         {
             //Debug.Log("medium");
             return medium(board, validMoves);
+        }else if(chessBoard.currentDifficulty == 2){
+            (ChessPiece, int, int) option = hard(board, validMoves);
+            if(option.Item1 == null){
+                return medium(board, validMoves);
+            }
+            return option;
         }
         return validMoves[0];
     }
@@ -44,6 +50,7 @@ public class ChessOpponent : MonoBehaviour
 
     public (ChessPiece, int, int) medium(ChessPiece[,] board, List<(ChessPiece, int x, int y)> validMoves)
     {
+
         logicalBoard = board;
         Random rand = new Random();
         int r = (int)Random.Range(0f, (float)validMoves.Count);
@@ -71,7 +78,33 @@ public class ChessOpponent : MonoBehaviour
 
     public (ChessPiece, int, int) hard(ChessPiece[,] board, List<(ChessPiece, int x, int y)> validMoves)
     {
-        (ChessPiece, int, int) selectedPiece;
+        bool[,] newMoves = new bool[8,8];
+        bool[,] accum = new bool[8,8];
+
+        for(int i = 0; i < 8; i++)
+        {
+            for(int j = 0; j < 8; j++)
+            {
+                if (logicalBoard[i,j] != null && logicalBoard[i,j].isLight == team)
+                {
+                    newMoves = logicalBoard[i,j].getValidMoves(logicalBoard, logicalBoard[i,j]);
+                    accum = logicalBoard[i,j].mergeLists(newMoves, accum);
+                    //Debug.Log("Piece = " + currentPiece.name);
+                }
+            }
+        }
+
+        int counter = validMoves.Count;
+        for(int i =0; i <  counter; i++){
+            int x = validMoves[i].Item2;
+            int y = validMoves[i].Item3;
+            if(accum[x,y]){
+                validMoves.Remove(validMoves[i]);
+                counter--;
+            }
+        }
+
+        (ChessPiece, int, int) selection = (null, 0,0);
         int maxValue = 0;
         for (int i = 0; i < validMoves.Count; i++)
         {
@@ -83,11 +116,11 @@ public class ChessOpponent : MonoBehaviour
                 if (value > maxValue)
                 {
                     maxValue = value;
-                    //selection = validMoves[i];
+                    selection = validMoves[i];
                 }
             }
         }
-        return validMoves[0];
+        return selection;
     }
     private int minimax(int depth, bool isMax, ChessPiece[,] board)
     {

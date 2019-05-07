@@ -33,6 +33,8 @@ public class Board : MonoBehaviour
     public GameObject queenDarkPrefab;
     public GameObject queenLightPrefab;
 
+    public int moves;
+
 
     public ChessPiece[,] logicalBoard = new ChessPiece[boardDimension, boardDimension];
     public GameObject[,] highlights = new GameObject[boardDimension, boardDimension];
@@ -228,7 +230,7 @@ public class Board : MonoBehaviour
             isLightTurn = !isLightTurn;
             return;
         }
-
+        moves++;
         // move the piece to the new location
         int oldX = selectedPiece.currentX;
         int oldY = selectedPiece.currentY;
@@ -414,11 +416,11 @@ public class Board : MonoBehaviour
         clearHighlights();
 
         if (win == 0)
-            manager.finishedGame(1, endTime - startTime);
+            manager.finishedGame(1, endTime - startTime, moves);
         else if (win == 1)
-            manager.finishedGame(0, endTime - startTime);
+            manager.finishedGame(0, endTime - startTime, moves);
         else if (win == 2)
-            manager.finishedGame(.5f, endTime - startTime);
+            manager.finishedGame(.5f, endTime - startTime, moves);
 
 
         instantiatePieces();

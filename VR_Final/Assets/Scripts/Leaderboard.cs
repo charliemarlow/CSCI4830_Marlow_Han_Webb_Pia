@@ -10,7 +10,14 @@ using System.Linq;
 public class Leaderboard : MonoBehaviour
 {
 
+    public TextMesh time1;
+    public TextMesh moves1;
 
+      public TextMesh time2;
+    public TextMesh moves2;
+
+      public TextMesh time3;
+    public TextMesh moves3;
 
     List<List<string>> currentCSV = new List<List<string>>();
     string finalDest;
@@ -27,7 +34,7 @@ public class Leaderboard : MonoBehaviour
 
     private void Awake()
     {
-        lb.enabled = false;
+        //lb.enabled = false;
     }
 
     // Start is called before the first frame update
@@ -39,8 +46,64 @@ public class Leaderboard : MonoBehaviour
         {
             File.Create(finalDest);
         }
+        fillOut();
     }
 
+    
+    public void writeBoard(float time, int moves){
+        string allText = System.IO.File.ReadAllText(@finalDest, System.Text.Encoding.ASCII);
+        string newEntry = time.ToString() + " " + moves.ToString() + "\n";
+        allText = newEntry + allText;
+        System.IO.File.WriteAllText(@finalDest, allText);
+        fillOut();
+    }
+
+    public void readBoard(){
+        string allText = System.IO.File.ReadAllText(@finalDest, System.Text.Encoding.ASCII);
+        if (allText.Equals(""))
+        {
+            emptyCSV = true;
+            currentCSV.Clear();
+        }
+        currentCSV.Clear();
+        List<string> currCSV = allText.Split('\n').ToList<string>();
+
+        foreach (string s in currCSV)
+        {
+            currentCSV.Add(s.Split(' ').ToList<string>());
+        }
+
+        foreach(List<string> list in currentCSV){
+            foreach(string str in list){
+                Debug.Log(str);
+            }
+        }
+    }
+
+    public void fillOut(){
+        readBoard();
+
+        int outer = 0;
+        TextMesh[] times = {time1, time2, time3};
+        TextMesh[] moves = {moves1, moves2, moves3};
+
+        foreach(List<string> list in currentCSV){
+            int inner = 0;
+            foreach(string str in list){
+                if(inner == 0){
+                   times[outer].text = str; 
+                }else{
+                    moves[outer].text = str;
+                }
+                inner++;
+            }
+            outer++;
+            if(outer == 3){
+                break;
+            }
+        }
+    }
+    /* 
     public void writeToLeaderboard(float newScore, float time, string name)
     {
         DateTime date = new DateTime();
@@ -150,20 +213,7 @@ public class Leaderboard : MonoBehaviour
     }
     void updateCurrentCSV()
     {
-        string allText = System.IO.File.ReadAllText(@finalDest, System.Text.Encoding.ASCII);
-        if (allText.Equals(""))
-        {
-            emptyCSV = true;
-            currentCSV.Clear();
-        }
-        Debug.Log(allText.ToString());
-        currentCSV.Clear();
-        List<string> currCSV = allText.Split('\n').ToList<string>();
-
-        foreach (string s in currCSV)
-        {
-            currentCSV.Add(s.Split(' ').ToList<string>());
-        }
+        
     }
 
     void writeBack()
@@ -189,5 +239,5 @@ public class Leaderboard : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-    }
+    }*/
 }

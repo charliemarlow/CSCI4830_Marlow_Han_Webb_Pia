@@ -8,6 +8,19 @@ TagManager:
   - chess
   - highlight
   - board
+  - projectile
+  - FxTemporaire
+  - button
+  - start
+  - leader
+  - setpieces
+  - movepieces
+  - queeng
+  - kingd
+  - Hard
+  - easy
+  - medium
+  - hard
   layers:
   - Default
   - TransparentFX

@@ -10,7 +10,7 @@ public class MainMenu : MonoBehaviour
 
 
     // Start is called before the first frame update
-    private void Awake()
+   void Start()
     {
         main.enabled = true;
         tutorial.enabled = false;
@@ -21,18 +21,21 @@ public class MainMenu : MonoBehaviour
 
     public void StartButton()
     {
+        Debug.Log("in start menu");
         main.enabled = false;
         difficulty.enabled = true;
     }
 
     public void TutorialButton()
     {
+        Debug.Log("STARTING TUTORIAL HERE");
         main.enabled = false;
         tutorial.enabled = true;
     }
 
     public void HighScoresButton()
     {
+        main.enabled = false;
         leaderboard.enabled = true;
     }
 

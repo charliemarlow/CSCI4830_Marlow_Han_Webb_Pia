@@ -25,22 +25,107 @@ public class LaserFingers : MonoBehaviour
     public Laser laser;
     public GameObject currentSelection;
 
+    public Board board;
+
     // Start is called before the first frame update
     void Start()
     {
         laser.gameObject.SetActive(true);
+        GameObject boardGo = GameObject.FindWithTag("board");
+        board = boardGo.GetComponent<Board>();
     }
 
     public GameObject selectRaycast()
     {
-        Debug.Log("current selection name is " + currentSelection.name);
-        Debug.Log("Im printing from " + this.name);
+        if(currentSelection == null) return null;
         return currentSelection;
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        if(left.menuUp || right.menuUp){
+            laser.gameObject.SetActive(true);
+        }else{
+            laser.gameObject.SetActive(false);
+            return;
+        }
+
+        RaycastHit hit;
+        if (Physics.Raycast(new Ray(laser.transform.position, laser.transform.forward), out hit, maxLaserDistance))
+        {
+            laser.length = hit.distance;    // shortens the laser
+            if(left.getIsGrabbed() || right.getIsGrabbed()){
+                // use index trigger to select an object
+                currentSelection = hit.transform.gameObject;
+                if(hit.transform.CompareTag("easy")){
+                    board.clearBoard();
+                    board.clearHighlights();
+                    board.isTutorial = false;
+                    board.isMoveTutorial = false;
+                    board.currentDifficulty = 0;
+                    board.instantiatePieces();
+                    left.killMenu();
+                    right.killMenu();
+
+                }else if(hit.transform.CompareTag("medium")){
+                    board.clearBoard();
+                    board.clearHighlights();
+                    board.isTutorial = false;
+                    board.isMoveTutorial = false;
+                    board.currentDifficulty =1;
+                    board.instantiatePieces();
+                    left.killMenu();
+                    right.killMenu();
+                }else if(hit.transform.CompareTag("hard")){
+                    board.clearBoard();
+                    board.clearHighlights();
+                    board.isTutorial = false;
+                    board.isMoveTutorial = false;
+                    board.currentDifficulty = 2;
+                    board.instantiatePieces();
+                    left.killMenu();
+                    right.killMenu();
+                }
+                else if(hit.transform.CompareTag("kingd")){
+                     board.clearBoard();
+                    board.clearHighlights();
+                    board.isTutorial = true;
+                    gm.startTutorial(2);
+                    left.killMenu();
+                    right.killMenu();
+                    
+                }else if(hit.transform.CompareTag("queeng")){
+                    board.clearBoard();
+                    board.clearHighlights();
+                    board.isTutorial = true;
+                    gm.startTutorial(3);
+                    left.killMenu();
+                    right.killMenu();
+                }else if(hit.transform.CompareTag("movepieces")){
+                     board.clearBoard();
+                    board.clearHighlights();
+                    board.isTutorial = true;
+                    board.isMoveTutorial = true;
+                    gm.startTutorial(1);
+                    left.killMenu();
+                    right.killMenu();
+                }else if(hit.transform.CompareTag("setpieces")){
+                     board.clearBoard();
+                    board.clearHighlights();
+                    board.isTutorial = true;
+                    gm.startTutorial(0);
+                    left.killMenu();
+                    right.killMenu();
+                    
+                }
+            }
+        }else{
+            laser.length = maxLaserDistance;
+        }
+
+        /* 
         // only use laser fingers when taking a survey
         if (gm.raycastMode)
         {
@@ -59,21 +144,27 @@ public class LaserFingers : MonoBehaviour
 
             // use index trigger to select an object
             currentSelection = hit.transform.gameObject;
-
+            Debug.Log("current selection = " + currentSelection.name);
             // we can check here what it actually is
-            if (hit.collider)
-            {
+            //if (hit.collider == main1 || hit.collider== main2 || hit.collider== main3)
+            //{
                 if (right.getIsGrabbed() == true || left.getIsGrabbed() == true)
                 {
                     //mainMenu buttons
-                    if (hit.collider == main1)
+                    if (hit.collider == main1){
+                        Debug.Log("invoking main1");
                         Main1.onClick.Invoke();
+                    }
 
-                    if (hit.collider == main2)
+                    if (hit.collider == main2){
+                        Debug.Log("invoking main2");
                         Main2.onClick.Invoke();
+                    }
                  
-                    if (hit.collider == main3)
+                    if (hit.collider == main3){
                         Main3.onClick.Invoke();
+                        Debug.Log("hitting main 3");
+                    }
 
 
                     //selectPiece menu buttons
@@ -203,13 +294,14 @@ public class LaserFingers : MonoBehaviour
                         ENTER.onClick.Invoke();
 
                 }
-            }
+            //}
 
         }
         else
         {
             laser.length = maxLaserDistance;
         }
+        */
     }
 }
 

@@ -10,6 +10,9 @@ public class ControllerInput : MonoBehaviour
     public SteamVR_Behaviour_Pose controller;
     public SteamVR_Input_Sources source;
     public bool isLeft;
+    public bool menuUp;
+    public GameObject currentMenu;
+    public GameObject menuPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -68,17 +71,19 @@ public class ControllerInput : MonoBehaviour
         if (SteamVR_Actions._default.GrabPinch.GetStateDown(source) && !isGrabbed)
         {
             isGrabbed = true;
+            Debug.Log("Is grabbed");
             //putDownHaptic();
             if(recentCollision != null)
             {
                 OnStay(recentCollision);
             }
-
+            /* 
             if (gm.raycastMode && !isSelecting)
             {
                 isSelecting = true;
                 gm.raycastSelect(this);
             }
+            */
         }
         if(SteamVR_Actions._default.GrabPinch.GetStateUp(source) && isGrabbed)
         {
@@ -101,19 +106,53 @@ public class ControllerInput : MonoBehaviour
         return isGrabbed;
     }
 
+    private void onCollisionEnter(Collider other){
+             Debug.Log("Entering");
+        if(other.CompareTag("button")){
+            Debug.Log("HERE");
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
+                    Debug.Log("Entering");
+        if(other.CompareTag("button")){
+            Debug.Log("HERE");
+            if(menuUp){
+                Destroy(currentMenu);
+                menuUp = false;
+                currentMenu = null;
+            }else{
+                currentMenu = Instantiate(menuPrefab);
+                menuUp = true;
+            }
+        }
         recentCollision = other;
+        Debug.Log("collided with " + other.name);
     }
     private void OnTriggerExit(Collider other)
     {
+        Debug.Log("exiting with " + other.name);
         recentCollision = null;
+    }
+
+    public void startMenu(){
+        menuUp = true;
+        if(currentMenu != null) return;
+        currentMenu = Instantiate(menuPrefab);
+    }
+
+    public void killMenu(){
+        menuUp = false;
+        if(currentMenu == null) return;
+        Destroy(currentMenu);
+        currentMenu = null;
     }
 
     private void OnStay(Collider other)
     {
         Debug.Log("Trigger = " + other.gameObject.name);
+
         ChessPiece piece = other.GetComponent<ChessPiece>();
         if (piece == null) return;
         if (currentPiece != null || !piece.isActiveAndEnabled) return;
