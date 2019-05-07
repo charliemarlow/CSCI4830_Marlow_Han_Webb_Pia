@@ -5,17 +5,19 @@ using UnityEngine;
 public class KingsDefense : Tutorial
 {
     private int index = 0;
-    private List<AudioClip> soundClips = getAudio();
+    private List<AudioClip> soundClips;
     AudioSource mysound;
     // Start is called before the first frame update
     public override void extraStart()
     {
         setNonMoveableWhite();
-        mysound = GetComponent<AudioSource>();
-        mysound.PlayOneShot(soundClips[0], 0.8f);
+        mysound = getSource();
+        soundClips = getAudio();
+        mysound.clip = soundClips[0];
+        mysound.Play();
         board.tutorial = this;
         nextMove();
-        mysound.PlayOneShot(soundClips[1], 0.8f);
+        
     }
 
     public override void dropPiece(ChessPiece piece){
@@ -41,6 +43,8 @@ public class KingsDefense : Tutorial
                 board.instantiatePiece(board.pawnLightPrefab, 3, 1);
                 instantiateHighlight(3,1);
                 instantiateHighlight(3,3);
+                mysound.clip = soundClips[1];
+                mysound.Play();
                 break;
             case 2:
                 Destroy(board.logicalBoard[1,0].gameObject);

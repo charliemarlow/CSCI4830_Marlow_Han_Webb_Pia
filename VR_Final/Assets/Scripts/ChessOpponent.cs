@@ -83,7 +83,7 @@ public class ChessOpponent : MonoBehaviour
                 if (value > maxValue)
                 {
                     maxValue = value;
-                    selection = validMoves[i];
+                    //selection = validMoves[i];
                 }
             }
         }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class SetBoardTutorial : Tutorial
 {
 
-    private List<AudioClip> soundClips = getAudio();
+    public List<AudioClip> soundClips;
     AudioSource mysound;
     public (int, int) lastHighlightLocation;
 
@@ -75,12 +75,17 @@ public class SetBoardTutorial : Tutorial
         myPrefabs.Add(board.queenLightPrefab);
         myPrefabs.Add(board.kingLightPrefab);
 
-
-        pieceTutorial(myPrefabs[index]);
-
-        mysound = GetComponent<AudioSource>();
-        mysound.PlayOneShot(soundClips[0], 0.8f);
+        mysound = getSource();
+        Debug.Log(soundClips.Count);
+        mysound.Play();
+        soundClips = getAudio();
+                mysound.clip = soundClips[0];
+        Debug.Log("after sound played");
         board.tutorial = this; //IMPORTANT
+
+        Debug.Log("index = " + index);
+        Debug.Log("prefab count " + myPrefabs.Count);
+        pieceTutorial(myPrefabs[index]);
     }
 
     private void fillInPawns()
@@ -100,32 +105,40 @@ public class SetBoardTutorial : Tutorial
             case 0:
                 // pawn
                 instantiateHighlight(0, 1);
-                mysound.PlayOneShot(soundClips[1], 0.8f);
+                Debug.Log(soundClips[1].name);
+                mysound.clip = soundClips[1];
+                mysound.Play();
                 break;
             case 1:
                 //rook
                 instantiateHighlight(0, 0);
-                mysound.PlayOneShot(soundClips[2], 0.8f);
+                mysound.clip = soundClips[2];
+                mysound.Play();
                 break;
             case 2:
                 // knight
-                mysound.PlayOneShot(soundClips[3], 0.8f);
+                mysound.clip = soundClips[3];
+                mysound.Play();
                 instantiateHighlight(1,0);
                 break;
             case 3:
                 //bishop
-                mysound.PlayOneShot(soundClips[4], 0.8f);
+                mysound.clip = soundClips[4];
+                mysound.Play();
                 instantiateHighlight(2, 0);
                 break;
             case 4:
                 //queen
-                mysound.PlayOneShot(soundClips[5], 0.8f);
+                mysound.clip = soundClips[5];
+                mysound.Play();
                 instantiateHighlight(3, 0);
                 break;
             case 5:
                 //king
-                instantiateHighlight(4, 0);
+                mysound.clip = soundClips[6];
+                mysound.Play();
                 mysound.PlayOneShot(soundClips[6], 0.8f);
+                instantiateHighlight(4, 0);
                 break;
         }
         index++;

@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private Tutorial tuts;
+    public AudioSource sound;
     public bool raycastMode;
     public Leaderboard leader;
     public Board board;
@@ -54,6 +55,7 @@ public class GameManager : MonoBehaviour
     public void startTutorial(int tut){
         switch(tut){
             case 0:
+            Debug.Log("before soundclips");
                 setBoardClips.Add(setBoard);
                 setBoardClips.Add(setBoardPawn);
                 setBoardClips.Add(setBoardRook);
@@ -61,8 +63,10 @@ public class GameManager : MonoBehaviour
                 setBoardClips.Add(setBoardBishop);
                 setBoardClips.Add(setBoardQueen);
                 setBoardClips.Add(setBoardKing);
+                Debug.Log("sound list" + setBoardClips.Count);
                 tuts = Instantiate(setPieces);
                 tuts.setAudio(setBoardClips);
+                tuts.setSource(sound);
                 break;
             case 1:
                 moveClips.Add(move);
@@ -74,18 +78,21 @@ public class GameManager : MonoBehaviour
                 moveClips.Add(moveKing);
                 tuts = Instantiate(moves);
                 tuts.setAudio(moveClips);
+                tuts.setSource(sound);
                 break;
             case 2:
                 queenClips.Add(openings);
                 queenClips.Add(queensGambit);
                 tuts = Instantiate(queens);
                 tuts.setAudio(queenClips);
+                tuts.setSource(sound);
                 break;
             case 3:
                 kingClips.Add(openings);
                 kingClips.Add(kingsDefense);
-                Instantiate(kings);
-                tuts.setAudio(setBoardClips);
+                tuts = Instantiate(kings);
+                tuts.setAudio(kingClips);
+                tuts.setSource(sound);
                 break;
         }
 
@@ -111,7 +118,7 @@ public class GameManager : MonoBehaviour
         leader = GetComponent<Leaderboard>();
         GameObject boardGo = GameObject.FindWithTag("board");
         board = boardGo.GetComponent<Board>();
-        //startTutorial(2);
+        startTutorial(3);
     }
 
 

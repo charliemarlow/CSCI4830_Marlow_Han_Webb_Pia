@@ -6,9 +6,23 @@ public abstract class Tutorial : MonoBehaviour
 {
 
     public Board board;
+    public static AudioSource sSource;
     public static List<AudioClip> voiceover;
     public bool isDone;
     // Start is called before the first frame update
+
+    public static AudioSource getSource()
+    {
+        return sSource;
+        Debug.Log("get Audio Source");
+    }
+
+    public void setSource(AudioSource src)
+    {
+        sSource = src;
+        Debug.Log("set Audio Source");
+    }
+
     public static List<AudioClip> getAudio()
     {
         return voiceover;
@@ -16,7 +30,12 @@ public abstract class Tutorial : MonoBehaviour
 
     public void setAudio(List<AudioClip> list)
     {
-        voiceover = list;
+        voiceover = new List<AudioClip>();
+        foreach(AudioClip clip in list){
+            Debug.Log(clip.name);
+            Debug.Log(voiceover);
+            voiceover.Add(clip);
+        }
     }
 
     void Start()
@@ -35,6 +54,7 @@ public abstract class Tutorial : MonoBehaviour
         // set which tutorial it is
         board.tutorial = this;
         this.extraStart();
+ 
     }
 
     public virtual void extraStart()
