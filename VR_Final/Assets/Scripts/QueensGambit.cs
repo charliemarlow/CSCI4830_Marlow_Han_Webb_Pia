@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OpeningsTutorial : Tutorial
+public class QueensGambit : Tutorial
 {
 
     private int index = 0;
@@ -37,13 +37,13 @@ public class OpeningsTutorial : Tutorial
                 break;
             case 2:
                 Destroy(board.logicalBoard[3, 0].gameObject);
-                board.instantiatePiece(board.knightLightPrefab, 3, 0);
+                board.instantiatePiece(board.queenLightPrefab, 3, 0);
                 instantiateHighlight(3, 0);
                 instantiateHighlight(0, 3);
                 break;
             case 3:
                 Destroy(board.logicalBoard[2, 0].gameObject);
-                board.instantiatePiece(board.knightLightPrefab, 2, 0);
+                board.instantiatePiece(board.bishopLightPrefab, 2, 0);
                 instantiateHighlight(2, 0);
                 instantiateHighlight(5, 3);
                 break;

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 
@@ -8,12 +9,15 @@ public class LaserFingers : MonoBehaviour
 {
 
     public float maxLaserDistance;
+    public Collider btn1, btn2, btn3, test;
+    public Button start;
+    public ControllerInput left, right;
 
     public GameManager gm;
-
+    public bool button_active = false;
     public Laser laser;
     public GameObject currentSelection;
-
+   
     // Start is called before the first frame update
     void Start()
     {
@@ -50,11 +54,28 @@ public class LaserFingers : MonoBehaviour
             currentSelection = hit.transform.gameObject;
 
             // we can check here what it actually is
+            if (hit.collider == btn1 || hit.collider == btn2 || hit.collider == btn3)
+            {
+            Debug.Log("You hit the button collider!");
+            if (right.getIsGrabbed() == true || left.getIsGrabbed() == true)
+            {
+                Debug.Log("You did it!");
+                start.onClick.Invoke();
+                button_active = true;
+            }
+        }
+
+        else
+        {
+            button_active = false;
+        }
         }
         else
         {
             laser.length = maxLaserDistance;
         }
+
+
 
 
     }

@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     public Tutorial moves;
     public Tutorial queens;
     public Tutorial kings;
-
+    
     public void setTutorial(bool tut)
     {
         board.setIsTutorial(tut);
@@ -64,7 +64,14 @@ public class GameManager : MonoBehaviour
         leader = GetComponent<Leaderboard>();
         GameObject boardGo = GameObject.FindWithTag("board");
         board = boardGo.GetComponent<Board>();
-        startTutorial(3);
+        //startTutorial(2);
+    }
+
+
+    // Update is called once per frame
+    void Update()
+    {
+
     }
 
     public void exitTutorial(){
@@ -81,7 +88,7 @@ public class GameManager : MonoBehaviour
 
     public void makeHappy()
     {
-
+        
     }
 
     public void makeSad()
@@ -114,17 +121,10 @@ public class GameManager : MonoBehaviour
     }
 
     public void moveAvatarHand(ChessPiece movingPiece, int x, int y)
-    {
-        int oldX = movingPiece.currentX;
-        int oldY = movingPiece.currentY;
+    {   
 
-        // oldx oldy is the board location of the piece currently, x,y is the new location
-        // the avatar hand should move to
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
+    
 }

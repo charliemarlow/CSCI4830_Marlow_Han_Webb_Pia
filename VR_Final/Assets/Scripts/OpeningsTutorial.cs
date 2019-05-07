@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class QueensGambit : Tutorial
+public class OpeningsTutorial : Tutorial
 {
     // Start is called before the first frame update
     public override void extraStart()

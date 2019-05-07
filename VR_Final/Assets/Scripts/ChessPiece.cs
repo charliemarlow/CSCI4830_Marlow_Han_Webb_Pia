@@ -7,7 +7,6 @@ public abstract class ChessPiece : MonoBehaviour
     public bool isLight;
     public int currentX;
     public int currentY;
-
     
     public Rigidbody rb;
     public Transform holder;
@@ -19,12 +18,27 @@ public abstract class ChessPiece : MonoBehaviour
     public Quaternion originalRot;
     public ControllerInput currentInput;
 
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+        GameObject boardGo = GameObject.FindWithTag("board");
+        board = boardGo.GetComponent<Board>();
+        //Debug.Log(board.name + " in start method of chess piece " + this.name);
+        originalParent = transform.parent;
+    }
+    
+    void Update()
+    {
+        
+    }
+
     public void movePiece(int x, int y)
     {
         transform.localPosition = new Vector3(x, 0, y);
         currentX = x;
         currentY = y;
     }
+
      public virtual bool[,] getValidMoves(ChessPiece[,] board, ChessPiece selectedPiece)
     {
         bool[,] fail = new bool[1,1];
@@ -116,20 +130,8 @@ public abstract class ChessPiece : MonoBehaviour
 
     // code for getting picked up below
     // Start is called before the first frame update
-    void Start()
-    {
-        rb = GetComponent<Rigidbody>();
-        GameObject boardGo = GameObject.FindWithTag("board");
-        board = boardGo.GetComponent<Board>();
-        //Debug.Log(board.name + " in start method of chess piece " + this.name);
-        originalParent = transform.parent;
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 
     private Vector3 mOffset;
     private float mzCoord;
