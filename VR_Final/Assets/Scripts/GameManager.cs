@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
 
     public Tutorial setPieces;
     public Tutorial moves;
+    public Tutorial queens;
+    public Tutorial kings;
 
     public void setTutorial(bool tut)
     {
@@ -28,12 +30,16 @@ public class GameManager : MonoBehaviour
         switch(tut){
             case 0:
                 Instantiate(setPieces);
-            break;
+                break;
             case 1:
                 Instantiate(moves);
-            break;
+                break;
             case 2:
-            break;
+                Instantiate(queens);
+                break;
+            case 3:
+                Instantiate(kings);
+                break;
         }
 
     }
@@ -58,7 +64,7 @@ public class GameManager : MonoBehaviour
         leader = GetComponent<Leaderboard>();
         GameObject boardGo = GameObject.FindWithTag("board");
         board = boardGo.GetComponent<Board>();
-        startTutorial(1);
+        startTutorial(3);
     }
 
     public void exitTutorial(){

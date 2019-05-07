@@ -16,6 +16,7 @@ public class SetBoardTutorial : Tutorial
         //Destroy(piece.gameObject);
         Debug.Log("I picked up " + piece.name);
     }
+    
     public override void dropPiece(ChessPiece piece)
     {
         piece.GetComponent<ChessPiece>().enabled = false;
@@ -60,6 +61,7 @@ public class SetBoardTutorial : Tutorial
             // go back to main menu
         }
     }
+
     public override void extraStart()
     {
 

@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class QueensGambit : Tutorial
+public class OpeningsTutorial : Tutorial
 {
+
+    private int index = 0;
     // Start is called before the first frame update
     public override void extraStart()
     {
@@ -31,5 +33,29 @@ public class QueensGambit : Tutorial
         board.setUpKnights(board.knightLightPrefab, lightSide);
         board.setUpBishops(board.bishopLightPrefab, lightSide);
         board.setUpRoyals(board.kingLightPrefab, board.queenLightPrefab, lightSide);
+    }
+
+    private void nextMove(){
+
+        switch (index)
+        {
+
+            case 0:
+                // pawn
+                
+                break;
+            case 1:
+                
+               
+                break;
+            case 2:
+                
+                break;
+            case 3:
+              
+                break;
+         
+        }
+        index++;
     }
 }

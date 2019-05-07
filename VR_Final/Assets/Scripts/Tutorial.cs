@@ -90,4 +90,23 @@ public abstract class Tutorial : MonoBehaviour
         return p;
 
     }
+
+    public void setNonMoveableWhite(){
+        for (int i = 0; i < 8; i++)
+        {
+            instantiatePiece(board.pawnLightPrefab, i, 1, false);
+        }
+
+        instantiatePiece(board.rookLightPrefab, 0, 0, false);
+        instantiatePiece(board.rookLightPrefab, 7, 0, false);
+
+        instantiatePiece(board.knightLightPrefab, 1, 0, false);
+        instantiatePiece(board.knightLightPrefab, 6, 0, false);
+
+        instantiatePiece(board.bishopLightPrefab, 2, 0, false);
+        instantiatePiece(board.bishopLightPrefab, 5, 0, false);
+
+        instantiatePiece(board.queenLightPrefab, 3, 0, false);
+        instantiatePiece(board.kingLightPrefab, 4, 0, false);
+    }
 }
