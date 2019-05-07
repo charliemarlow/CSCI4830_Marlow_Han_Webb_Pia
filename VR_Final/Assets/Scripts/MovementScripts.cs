@@ -7,7 +7,7 @@ public class MovementScripts : Tutorial
 
     public List<GameObject> myPrefabs = new List<GameObject>();
     private int index = 0;
-
+    private (int, int) victimLoc;
 
     // Update is called once per frame
     void Update()
@@ -16,7 +16,7 @@ public class MovementScripts : Tutorial
     }
 
     public override void extraStart(){
-         myPrefabs.Add(board.pawnLightPrefab);
+        myPrefabs.Add(board.pawnLightPrefab);
         myPrefabs.Add(board.rookLightPrefab);
         myPrefabs.Add(board.knightLightPrefab);
         myPrefabs.Add(board.bishopLightPrefab);
@@ -27,52 +27,39 @@ public class MovementScripts : Tutorial
         pieceTutorial(myPrefabs[index]);
 
         board.tutorial = this; //IMPORTANT
+        board.isMoveTutorial = true;
     }
 
 
 
 public override void dropPiece(ChessPiece piece)
     {
+        (int, int) pieceLoc = (piece.currentX, piece.currentY);
         piece.GetComponent<ChessPiece>().enabled = false;
         int previousLocation = index - 1;
-        switch (previousLocation)
+
+        if(pieceLoc.Item1 != victimLoc.Item1 || pieceLoc.Item2 != victimLoc.Item2)
         {
-            case 0:
-                // pawn
-                fillInPawns();
-                break;
-            case 1:
-                //rook
-                instantiatePiece(board.rookLightPrefab, 7, 0, false);
-                Debug.Log("placed rook");
-                break;
-            case 2:
-                // horse
-                instantiatePiece(board.knightLightPrefab, 6, 0, false);
-                Debug.Log("placed horse");
-                break;
-            case 3:
-                //bishop
-                instantiatePiece(board.bishopLightPrefab, 5, 0, false);
-                Debug.Log("placed bishop");
-                break;
-            case 4:
-                //queen
-                break;
-            case 5:
-                //king
-                break;
+            board.logicalBoard[piece.currentX, piece.currentY] = null;
+            Destroy(piece.gameObject);
         }
+
         board.clearHighlights();
+
         if (index < myPrefabs.Count)
         {
             pieceTutorial(myPrefabs[index]);
         }
-        else
+        
+        else if(index == myPrefabs.Count + 1)
         {
+            Debug.Log("exiting");
             // this means they finished the tutorial
             // some sort of congratulations?
             // go back to main menu
+            board.isMoveTutorial =false;
+            board.isTutorial = false;
+            board.tutorial = null;
         }
     }
 
@@ -82,36 +69,45 @@ public override void dropPiece(ChessPiece piece)
 
     private void pieceTutorial(GameObject piece)
     {
-        instantiatePiece(piece, 4, 3, true);
+        ChessPiece p = instantiatePiece(piece, 4, 3, true);
+
+
         switch (index)
         {
 
             case 0:
                 // pawn
-                instantiatePiece(board.pawnDarkPrefab, 5, 4, true);
+                victimLoc = (5,4);
+                instantiateDarkPiece(board.pawnDarkPrefab, 5, 4, true);
                 break;
             case 1:
                 //rook
-                instantiatePiece(board.pawnDarkPrefab, 4, 7, true);
+                victimLoc = (4,7);
+                instantiateDarkPiece(board.pawnDarkPrefab, 4, 7, true);
                 break;
             case 2:
                 // knight
-                instantiatePiece(board.pawnDarkPrefab, 3, 4, true);
+                victimLoc = (2,4);
+                instantiateDarkPiece(board.pawnDarkPrefab, 2, 4, true);
                 break;
             case 3:
                 //bishop
-                instantiatePiece(board.pawnDarkPrefab, 7, 6, true);
+                victimLoc = (1,0);
+                instantiateDarkPiece(board.pawnDarkPrefab, 1, 0, true);
                 break;
             case 4:
                 //queen
-                instantiatePiece(board.pawnDarkPrefab, 0, 7, true);
+                victimLoc = (0,7);
+                instantiateDarkPiece(board.pawnDarkPrefab, 0, 7, true);
                 break;
             case 5:
                 //king
-                instantiatePiece(board.pawnDarkPrefab, 4, 4, true);
+                victimLoc = (4,4);
+                instantiateDarkPiece(board.pawnDarkPrefab, 4, 4, true);
                 break;
         }
         index++;
+
     }
 
 

@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
     public LaserFingers left;
     public LaserFingers right;
 
+    public Tutorial setPieces;
+    public Tutorial moves;
+
     public void setTutorial(bool tut)
     {
         board.setIsTutorial(tut);
@@ -19,6 +22,20 @@ public class GameManager : MonoBehaviour
     public bool getTutorial()
     {
         return board.getIsTutorial();
+    }
+
+    public void startTutorial(int tut){
+        switch(tut){
+            case 0:
+                Instantiate(setPieces);
+            break;
+            case 1:
+                Instantiate(moves);
+            break;
+            case 2:
+            break;
+        }
+
     }
 
     public void raycastSelect(ControllerInput controller)
@@ -41,6 +58,14 @@ public class GameManager : MonoBehaviour
         leader = GetComponent<Leaderboard>();
         GameObject boardGo = GameObject.FindWithTag("board");
         board = boardGo.GetComponent<Board>();
+        startTutorial(1);
+    }
+
+    public void exitTutorial(){
+        board.isMoveTutorial =false;
+        board.isTutorial = false;
+        Destroy(board.tutorial.gameObject);
+        board.tutorial = null;
     }
 
     public void clackNoise()
