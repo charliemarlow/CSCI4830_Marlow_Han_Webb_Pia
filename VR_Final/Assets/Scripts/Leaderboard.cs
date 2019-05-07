@@ -10,15 +10,25 @@ using System.Linq;
 public class Leaderboard : MonoBehaviour
 {
 
+
+
     List<List<string>> currentCSV = new List<List<string>>();
     string finalDest;
 
+
+    public Canvas mm, lb;
     int positionLoc = 0;
     int scoreLoc = 1;
     int dateLoc = 2;
     int nameLoc = 3;
     int timeLoc = 4;
     bool emptyCSV = false;
+
+
+    private void Awake()
+    {
+        lb.enabled = false;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -168,6 +178,13 @@ public class Leaderboard : MonoBehaviour
         string allText = String.Join(Environment.NewLine, currCSV.ToArray());
         System.IO.File.WriteAllText(@finalDest, allText);
     }
+
+    public void backToMain() 
+    {
+        mm.enabled = true;
+        lb.enabled = false;
+    }
+
 
     // Update is called once per frame
     void Update()
